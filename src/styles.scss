@@ -1,0 +1,53 @@
+/* RESET DURO para quitar bordes del viewport */
+:root, html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 100%;
+}
+* { box-sizing: border-box; }
+img { display: block; max-width: 100%; }
+
+/* util para secciones 100vw */
+.fullbleed{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Global reset básico */
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }   /* ⬅️ esto quita las orillas blancas */
+img { display: block; max-width: 100%; }
+
+:root{
+  --blue-700:#004EA8;   /* header, títulos */
+  --blue-500:#04A9C7;   /* acentos */
+  --green-500:#19B37A;  /* chips/botón activo */
+  --ink-900:#0F2A44;    /* footer */
+  --surface:#fff; --muted:#e6eef7; --radius:16px;
+  --font-sans:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+html,body{height:100%} body{margin:0; font-family:var(--font-sans); background:#f7f9fc}
+.container{max-width:1200px; margin:0 auto; padding:24px}
+.stack>*+*{margin-top:14px}
+.btn{background:var(--blue-700); color:#fff; border:0; border-radius:999px; padding:.9rem 1.6rem; font-weight:600; cursor:pointer}
+.input,.select{width:100%; padding:.9rem 1rem; border:0; border-radius:999px; background:#fff; box-shadow:0 2px 0 rgba(0,0,0,.1) inset}
+.card{background:#fff; border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,.08)}
+.footer{background:var(--ink-900); color:#fff; padding:28px 24px}
+.bg-hero{position:relative; isolation:isolate; border-radius:var(--radius); overflow:hidden}
+.bg-hero::before{content:""; position:absolute; inset:0; background:center/cover no-repeat var(--hero, none); filter:brightness(.65)}
+.bg-hero::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,78,168,.85), rgba(25,179,122,.85)); mix-blend-mode:multiply}
+.bg-hero>*{position:relative; z-index:1; color:#fff}
+.center{max-width:560px; margin:0 auto; padding:48px 24px; text-align:center}
+.grid{display:grid; gap:16px}
+
+
+
+/* El componente raíz debe comportarse como bloque a 100% */
+app-root, app-header, app-footer {
+  display: block;
+  width: 100%;
+}

@@ -1,0 +1,194 @@
+/* Hace que el bloque ocupe 100vw, ignorando el max-width del layout */
+.fullbleed{
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Hero a todo lo ancho, sin bordes redondeados */
+.hero{
+  position:relative;
+  height: 360px;         /* súbelo o bájalo a tu gusto (ej. 380–420) */
+  overflow:hidden;
+  border-radius: 0;      /* ⬅️ sin esquinas */
+}
+.hero__img{ width:100%; height:100%; object-fit:cover; }
+
+.hero__nav{
+  position:absolute; top:50%; transform:translateY(-50%);
+  border:0; width:48px; height:48px; border-radius:999px;
+  background:rgba(0,0,0,.35); color:#fff; cursor:pointer; font-size:20px;
+}
+.hero__nav.left{ left:18px } 
+.hero__nav.right{ right:18px }
+
+.hero__cta{
+  position:absolute; left:40px; bottom:28px;
+  background:rgba(255,255,255,.18);
+  border:2px solid #fff; color:#fff; font-weight:700;
+  padding:.6rem 1.1rem; border-radius:10px;
+}
+
+.hero__dots{
+  position:absolute; left:0; right:0; bottom:16px;
+  display:flex; justify-content:center; gap:8px;
+}
+.dot{ width:10px; height:10px; border-radius:999px; border:0; background:rgba(255,255,255,.6) }
+.dot.active{ background:#fff }
+
+/* ====== Franja blanca justo debajo del hero ====== */
+.quick-strip{
+  position: relative;
+  z-index: 2;
+  /* hacemos el fondo blanco del contenedor, no de la tarjeta */
+  background: #fff;
+  /* nos “encimamos” al hero desde el propio contenedor */
+  margin-top: -28px;
+  padding-top: 22px;   /* lo que antes estaba en la card */
+  padding-bottom: 28px;
+}
+
+.quick-strip__card{
+  max-width: 1100px;
+  margin: 0 auto;      /* sin margen negativo aquí */
+  /* eliminamos el doble blanco y la separación visual */
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;          /* padding se lo dimos al contenedor */
+}
+
+.quick-grid{
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 12px;
+  align-items: center; text-align: center;
+}
+
+.quick-item img{
+  height: 72px;               /* ⬅️ tamaño grande de iconos */
+  width: auto; margin: 0 auto 10px;
+}
+.quick-item h4{
+  margin: 0;
+  font-weight: 800;
+  color: #0B3654;             /* azul título (ajusta a tu guía) */
+  line-height: 1.25;
+}
+
+/* ====== Línea con puntos ====== */
+.progress{
+  display: flex; justify-content: center; margin-top: 12px;
+}
+.progress__line{
+  position: relative;
+  width: 78%;                  /* largo de la línea */
+  height: 4px; border-radius: 999px;
+  background: #19B5D8;        /* cian de tu guía */
+}
+.p-dot{
+  position: absolute; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px; height: 14px; border-radius: 999px;
+  background: #19B5D8;        /* mismo color que la línea */
+  box-shadow: 0 0 0 4px #fff; /* halo blanco como en el mockup */
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 900px){
+  .quick-item img{ height: 60px; }
+  .quick-item h4{ font-size: 15px; }
+  .progress__line{ width: 86%; }
+}
+@media (max-width: 640px){
+  .quick-grid{ grid-template-columns: 1fr; gap: 18px; }
+  .progress__line{ width: 90%; }
+}
+
+/* ====== CATEGORÍAS ====== */
+.categories{
+  width: 100%;
+  background: #ffffff;             /* el fondo de la franja de categorías */
+  padding: 12px 0 24px;
+}
+
+.cat-grid{
+  list-style: none; margin: 0; padding: 0;   /* padding lateral */
+  display: grid; gap: 12px;
+  grid-template-columns: repeat(6, 1fr);          /* 6 columnas como el mockup */
+}
+
+/* Cada tarjeta con fondo y tamaño consistente */
+.cat-card{
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  /* Misma altura para todas: */
+  aspect-ratio: 16 / 10;           /* relación similar a tu mockup */
+  min-height: 210px;               /* asegura altura mínima en pantallas grandes */
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.cat-link{ display: block; width: 100%; height: 100%; position: relative; }
+
+.cat-overlay{
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,.45) 100%);
+}
+
+.cat-icon{
+  position: absolute; left: 50%; top: 40%;
+  transform: translate(-50%, -50%);
+  width: 64px; height: auto;       /* íconos del mismo tamaño */
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); /* leve realce */
+}
+
+.cat-title{
+  position: absolute; left: 50%; bottom: 18px;
+  transform: translateX(-50%);
+  text-align: center; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,.6);
+  font-weight: 800; line-height: 1.05;
+}
+
+.cat-title span{
+  display: block; font-weight: 700; font-size: 14px;
+}
+.cat-title strong{
+  display: block; margin-top: 4px; font-size: 18px; letter-spacing: .2px;
+}
+
+/* Hover lindo */
+.cat-card:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.18);
+}
+.cat-card:hover .cat-overlay{
+  background: linear-gradient(180deg, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);
+}
+.cat-card:hover .cat-icon{
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 1280px){
+  .cat-grid{ grid-template-columns: repeat(3, 1fr); }
+  .cat-icon{ width: 60px; }
+}
+@media (max-width: 900px){
+  .cat-grid{ grid-template-columns: repeat(2, 1fr); }
+  .cat-card{ min-height: 190px; }
+  .cat-icon{ width: 56px; }
+}
+@media (max-width: 560px){
+  .cat-grid{ grid-template-columns: 1fr; }
+  .cat-card{ min-height: 170px; aspect-ratio: 16/11; }
+  .cat-icon{ width: 54px; }
+  .cat-title span{ font-size: 13px; }
+  .cat-title strong{ font-size: 17px; }
+}

@@ -1,0 +1,69 @@
+<!-- HERO FULL WIDTH -->
+<div class="fullbleed">
+  <div class="hero">  <!-- si tenías class="card", quítalo para evitar bordes/radius -->
+    <button class="hero__nav left" (click)="prevHero()">❮</button>
+    <img [src]="hero[heroIndex]" class="hero__img" alt="">
+    <button class="hero__nav right" (click)="nextHero()">❯</button>
+
+    <button class="hero__cta btn btn--ghost">Ver más...</button>
+
+    <div class="hero__dots">
+      <button *ngFor="let _ of hero; let i = index"
+              class="dot" [class.active]="i===heroIndex"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Si después tienes más secciones centradas, puedes usar de nuevo el container -->
+<section class="container">
+  <!-- más contenido -->
+</section>
+
+<!-- === FRANJA BLANCA CON ÍCONOS === -->
+<section class="quick-strip">
+  <div class="quick-strip__card">
+    <ul class="quick-grid">
+      <li class="quick-item">
+        <img src="assets/home/linea/edificios.png" alt="" />
+        <h4>Libros de todas<br>las areas</h4>
+      </li>
+
+      <li class="quick-item">
+        <img src="assets/home/linea/ia.png" alt="" />
+        <h4>Recomendaciones por<br>IA</h4>
+      </li>
+
+      <li class="quick-item">
+        <img src="assets/home/linea/perfil.png" alt="" />
+        <h4>Recomendaciones a<br>tu perfil</h4>
+      </li>
+    </ul>
+
+    <!-- línea con puntos -->
+    <div class="progress">
+      <div class="progress__line">
+        <span class="p-dot" style="left:0%"></span>
+        <span class="p-dot" style="left:50%"></span>
+        <span class="p-dot" style="left:100%"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CATEGORÍAS (6 cards) ====== -->
+<section class="categories">
+  <ul class="cat-grid">
+    <li class="cat-card"
+        *ngFor="let c of categorias"
+        [style.background-image]="'url(' + c.bg + ')'">
+      <a class="cat-link" [routerLink]="c.link" [attr.aria-label]="'Libros ' + c.titulo">
+        <div class="cat-overlay"></div>
+        <img class="cat-icon" [src]="c.icon" alt="" />
+        <div class="cat-title">
+          <span>Libros</span>
+          <strong>{{ c.titulo }}</strong>
+        </div>
+      </a>
+    </li>
+  </ul>
+</section>

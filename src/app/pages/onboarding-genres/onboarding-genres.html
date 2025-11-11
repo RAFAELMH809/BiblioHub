@@ -1,0 +1,9 @@
+<section class="bg-hero" style="--hero: url('/assets/onboarding.jpg')">
+  <div class="center">
+    <h2>Elije al menos 3 de los siguientes géneros</h2>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);">
+      <button class="btn" *ngFor="let g of generos" style="background:#fff; color:#111; border-radius:999px">{{g}}</button>
+    </div>
+    <button class="btn" style="margin-top:20px">Enviar</button>
+  </div>
+</section>

@@ -1,16 +1,27 @@
-<section class="bg-hero" style="--hero: url('/assets/login.jpg')">
-  <div class="center">
-    <h1>Iniciar sesión</h1>
-    <form class="stack">
-      <app-input placeholder="Usuario"></app-input>
-      <app-password-input placeholder="Contraseña"></app-password-input>
-      <app-button>Iniciar</app-button>
+<section class="auth auth--login fullbleed">
+  <div class="auth__overlay"></div>
+
+  <div class="auth__content">
+    <h1 class="auth__title">Iniciar sesión</h1>
+
+    <form class="auth__form" (submit)="$event.preventDefault()">
+      <!-- Usuario -->
+      <div class="field">
+        <input type="text" placeholder="Usuario" />
+      </div>
+
+      <!-- Contraseña -->
+      <div class="field field--password">
+        <input [type]="showPwd ? 'text' : 'password'" placeholder="Contraseña" />
+        <button type="button" class="pw-toggle" (click)="togglePwd()" aria-label="Mostrar/ocultar contraseña"></button>
+      </div>
+
+      <button type="submit" class="btn-primary">Iniciar</button>
     </form>
-    <div style="margin-top:24px">
-      <p>¿Ya tienes un perfil personal?
-        <a routerLink="/signup" style="color:#fff; text-decoration:underline;">Crear cuenta</a></p>
-      <p>¿Olvidaste tu contraseña?
-        <a style="color:#fff; text-decoration:underline;">Recuperar contraseña</a></p>
+
+    <div class="auth__links">
+      <p>¿Ya tienes un perfil personal? <a routerLink="/signup">Crear cuenta</a></p>
+      <p>¿Olvidaste tu contraseña? <a routerLink="/home">Recuperar contraseña</a></p>
     </div>
   </div>
 </section>

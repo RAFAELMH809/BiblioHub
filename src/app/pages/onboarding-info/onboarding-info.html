@@ -1,19 +1,56 @@
-<section class="bg-hero" style="--hero: url('/assets/onboarding.jpg')">
-  <div class="center">
-    <h2>Cuéntanos sobre ti…</h2>
-    <div class="card" style="padding:16px; text-align:left; color:#111">
-      <div class="stack">
-        <label>Rol</label>
-        <select class="select"><option>Estudiante</option><option>Docente</option><option>Profesionista</option><option>Investigador(a)</option><option>Aficionado(a)</option></select>
-        <label>Nivel</label>
-        <select class="select"><option>Secundaria</option><option>Bachillerato</option><option>Técnico</option><option>Licenciatura</option><option>Posgrado</option></select>
-        <label>Área</label>
-        <select class="select"><option>Ingeniería</option><option>Salud</option><option>Negocios</option><option>Derecho</option><option>Educación</option></select>
-        <label>Objetivo de uso</label>
-        <select class="select"><option>Aprender desde cero</option><option>Profundizar/actualizar</option><option>Investigación</option><option>Ocio/Lectura general</option><option>Enseñanza</option></select>
-        <label>¿Cuánto tiempo le dedicas a la lectura?</label>
-        <select class="select"><option>Menos de 2h</option><option>2-5h</option><option>5-10h</option><option>10-15h</option><option>Más de 15h</option></select>
-        <button class="btn" type="button">Enviar</button>
+<!-- Backdrop del modal (ocupa toda la pantalla) -->
+<section class="onb">
+  <div class="onb__modal">
+    <!-- encabezado -->
+    <div class="onb__header">
+      <h2>Cuéntanos sobre ti…</h2>
+      <button class="x" (click)="close()" aria-label="Cerrar">×</button>
+    </div>
+
+    <!-- contenido en dos columnas -->
+    <div class="onb__content">
+      <!-- Columna izquierda: título del paso + opciones tipo pill -->
+      <div class="onb__left">
+        <h3 class="step-title">{{ step.title }}</h3>
+
+        <div class="pill-list">
+          <button
+            class="pill"
+            *ngFor="let opt of step.options"
+            [class.active]="isActive(opt)"
+            (click)="choose(opt)"
+          >
+            {{ opt }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Columna derecha: imagen con animación al cambiar de paso -->
+      <div class="onb__right">
+        <img
+          class="hero"
+          [src]="heroSrc"
+          alt=""
+          [attr.data-bump]="bumpKey"
+        />
+      </div>
+    </div>
+
+    <!-- footer: bullets + acciones -->
+    <div class="onb__footer">
+      <div class="bullets">
+        <span
+          class="dot"
+          *ngFor="let _ of steps; let j = index"
+          [class.active]="j === i"
+        ></span>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--ghost" (click)="prev()" [disabled]="i === 0">Regresar</button>
+        <button class="btn btn--primary" (click)="next()" [disabled]="!canNext()">
+          {{ i < steps.length - 1 ? 'Siguiente' : 'Finalizar' }}
+        </button>
       </div>
     </div>
   </div>

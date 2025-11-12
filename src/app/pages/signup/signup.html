@@ -1,13 +1,25 @@
-<section class="bg-hero" style="--hero: url('/assets/signup.jpg')">
-  <div class="center">
-    <h1>Crear cuenta</h1>
-    <form class="stack">
-      <app-input placeholder="Nombre*"></app-input>
-      <app-input placeholder="Apellidos*"></app-input>
-      <app-input placeholder="Correo*"></app-input>
-      <app-password-input placeholder="Contraseña*"></app-password-input>
-      <app-password-input placeholder="Confirmar contraseña*"></app-password-input>
-      <app-button>Crear cuenta</app-button>
+<section class="auth auth--register fullbleed">
+  <div class="auth__overlay"></div>
+
+  <div class="auth__content">
+    <h1 class="auth__title">Crear cuenta</h1>
+
+    <form class="auth__form" (submit)="$event.preventDefault(); crearCuenta()">
+      <div class="field"><input type="text" placeholder="Nombre*" /></div>
+      <div class="field"><input type="text" placeholder="Apellidos*" /></div>
+      <div class="field"><input type="email" placeholder="Correo*" /></div>
+
+      <div class="field field--password">
+        <input [type]="showPwd1 ? 'text' : 'password'" placeholder="Contraseña*" />
+        <button type="button" class="pw-toggle" (click)="toggle1()" aria-label="Mostrar/ocultar contraseña"></button>
+      </div>
+
+      <div class="field field--password">
+        <input [type]="showPwd2 ? 'text' : 'password'" placeholder="Confirmar contraseña*" />
+        <button type="button" class="pw-toggle" (click)="toggle2()" aria-label="Mostrar/ocultar contraseña"></button>
+      </div>
+
+      <button type="submit" class="btn-primary btn-primary--wide">Crear cuenta</button>
     </form>
   </div>
 </section>

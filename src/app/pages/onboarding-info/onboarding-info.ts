@@ -105,7 +105,8 @@ export class OnboardingInfoComponent {
   }
 
   close() {
-    this.router.navigateByUrl('/home');
+      this.router.navigateByUrl('/onboarding/genres');
+
   }
 
   isActive(opt: string): boolean {

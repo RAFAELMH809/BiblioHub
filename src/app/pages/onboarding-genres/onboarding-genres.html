@@ -1,9 +1,40 @@
-<section class="bg-hero" style="--hero: url('/assets/onboarding.jpg')">
-  <div class="center">
-    <h2>Elije al menos 3 de los siguientes géneros</h2>
-    <div class="grid" style="grid-template-columns:repeat(4,1fr);">
-      <button class="btn" *ngFor="let g of generos" style="background:#fff; color:#111; border-radius:999px">{{g}}</button>
+<section class="genres fullbleed" [style.--bg]="'url(' + bgUrl + ')'">
+  <header class="top">
+    <img src="assets/brand/logo-full.png" alt="BiblioHub" class="logo" />
+    <h1>Cuéntanos sobre ti...</h1>
+    <p class="hint">Elije al menos <strong>3</strong> de los siguientes géneros</p>
+  </header>
+
+  <main class="grid">
+    <button
+      class="card"
+      *ngFor="let g of generos"
+      type="button"
+      [class.selected]="g.selected"
+      (click)="toggle(g)"
+      aria-pressed="{{g.selected}}"
+    >
+      <span class="chip">
+        <img [src]="g.icon" [alt]="g.nombre" />
+      </span>
+      <span class="title">{{ g.nombre }}</span>
+    </button>
+  </main>
+
+  <footer class="actions">
+    <a class="btn btn--ghost" routerLink="/onboarding/info">Regresar</a>
+
+    <div class="right">
+      <span class="min-msg" [class.ok]="countSelected >= 3">
+        {{ countSelected }}/3 seleccionados
+      </span>
+      <button
+        class="btn btn--primary"
+        [disabled]="countSelected < 3"
+        (click)="finalizar()"
+      >
+        Finalizar
+      </button>
     </div>
-    <button class="btn" style="margin-top:20px">Enviar</button>
-  </div>
+  </footer>
 </section>

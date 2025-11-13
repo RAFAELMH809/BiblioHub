@@ -1,24 +1,29 @@
 <header class="topbar fullbleed">
   <div class="topbar__row">
+    <!-- Menú hamburguesa -->
     <button class="icon-btn" aria-label="menu">
       <img src="assets/icons/menu.png" alt="" />
     </button>
 
-    <img class="brand" src="assets/brand/logo-full.png" alt="BiblioHub" />
+    <!-- Logo (tamaño visual controlado por --brand-h) -->
+    <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
+      <img src="assets/brand/logo-full.png" alt="BiblioHub" />
+    </a>
 
+    <!-- Buscador -->
     <div class="search">
       <img class="search__icon" src="assets/icons/search.png" alt="" />
       <input class="search__input" placeholder="Buscar" />
     </div>
 
-    <!-- 🔵 Acciones de autenticación (reemplaza favoritos/mark/avatar) -->
+    <!-- Acciones de autenticación -->
     <div class="auth-actions">
       <a class="btn btn--ghost" routerLink="/login">Iniciar sesión</a>
       <a class="btn btn--primary" routerLink="/signup">Crear cuenta</a>
     </div>
   </div>
 
-  <!-- barra azul -->
+  <!-- barra azul categorías -->
   <nav class="catbar fullbleed">
     <div class="catbar__row">
       <a routerLink="/home">Ciencias</a>

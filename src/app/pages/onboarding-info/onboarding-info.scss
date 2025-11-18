@@ -1,156 +1,310 @@
-/* Backdrop */
-/* Backdrop del modal */
-.onb{
-  position: fixed; inset: 0; z-index: 1000;
-  display: grid; place-items: center;
-
-  /* Fondo con tu imagen + un velo suave */
-  background:
-    linear-gradient(rgba(0,0,0,.35), rgba(0,0,0,.35)),
-    url("/assets/auth/informacionpersonal.jpg") center / cover no-repeat fixed;
-
-  /* Si quieres que se vea nítido el fondo, no uses blur */
-  backdrop-filter: none;
-
-  /* Espacio interno por si el modal necesita respirar en móviles */
-  padding: 16px;
+:host {
+  display: block;
 }
 
+/* ========= FONDO GENERAL (NO LO MUEVAS SI NO QUIERES TOCAR LA IMAGEN) ========= */
+.onb {
+  min-height: calc(100vh - 72px);
+  padding: 24px 0 32px;  /* altura global respecto al header */
 
-/* Caja del modal */
-.onb__modal{
-  width: min(1100px, 100%);
-  background: #f6fbff;
-  border-radius: 16px;
-  box-shadow: 0 18px 45px rgba(0,0,0,.35);
-  border: 1px solid rgba(12,72,115,.12);
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  background: url('/assets/auth/informacionpersonal.jpg')
+    center / cover no-repeat fixed;
+}
+
+.onb__inner {
+  width: min(1180px, 100% - 64px);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================== TÍTULO ================== */
+.onb__title {
+  margin: 0 0 18px;   /* ⬅⬅ distancia entre "Cuéntanos sobre ti…" y la PREGUNTA */
+  font-size: 34px;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* ============ CONTENIDO (PREGUNTAS + IMAGEN / GÉNEROS) ============ */
+.onb__content {
+  /* altura fija → la imagen y los botones no cambian de posición */
+  height: 520px;
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: stretch;
 }
 
-/* Header */
-.onb__header{
-  display:flex; align-items:center; justify-content:space-between;
-  padding: 14px 18px;
-  background: linear-gradient(180deg, #ffffff, #eef5fb);
-  border-bottom: 1px solid rgba(12,72,115,.12);
+.onb__content--genres {
+  grid-template-columns: 1fr;
+}
 
-  h2{
-    margin:0; font-size: 22px; font-weight: 800; color:#0b3255;
+/* ================== COLUMNA IZQUIERDA ================== */
+.onb__left {
+  display: flex;
+  align-items: flex-start;
+}
+
+/* ESTE bloque controla SOLO la parte de texto+respuestas */
+.onb__left-inner {
+  width: 100%;
+  /* ⬅⬅ si quieres subir/bajar SOLO las preguntas y respuestas, cambia esto */
+  padding-top: 0;      /* ejemplo:  -10px (más arriba),  10px (más abajo) */
+}
+
+/* Pregunta */
+.step-title {
+  margin: 16 0 80px;   /* ⬅⬅ distancia entre PREGUNTA y RESPUESTAS */
+  font-weight: 900;
+  font-size: 20px;
+}
+
+/* Respuestas tipo pill */
+.pill-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.pill {
+  border: 0;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(250, 252, 255, 0.9);
+  color: #17324d;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.12s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    transform: translateY(-1px);
   }
 
-  .x{
-    width:34px; height:34px; border-radius:999px;
-    border:0; background:#e8f1f9; color:#0b3255;
-    font-size:20px; line-height:1; cursor:pointer;
+  &.active {
+    background: #0055b3;
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
   }
 }
 
-/* Contenido */
-.onb__content{
-  display:grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 18px;
-  padding: 18px;
+/* ================== ÚLTIMA PANTALLA: GÉNEROS ================== */
+.genres-hint {
+  margin: 6px 0 14px;
+  font-weight: 600;
 }
 
-/* Columna izquierda */
-.onb__left{
-  .step-title{
-    margin: 4px 0 12px;
-    font-weight: 900; color:#0a3b62; font-size: 18px;
+.genres-grid {
+  margin-top: 4px;
+  display: grid;
+  grid-template-columns: repeat(4, 210px);
+  justify-content: center;
+  gap: 18px 24px;
+}
+
+.genre-card {
+  border: 0;
+  border-radius: 18px;
+  padding: 12px 10px 14px;
+  background: rgba(250, 252, 255, 0.9);
+  color: #17324d;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.12s ease,
+    background 0.12s ease;
+
+  &:hover {
+    transform: translateY(-2px);
   }
 
-  .pill-list{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  &.selected {
+    background: #0055b3;
+    color: #ffffff;
+    box-shadow: 0 12px 26px rgba(0, 0, 0, 0.45);
   }
+}
 
-  .pill{
-    border: 0;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: #e3e9ef;
-    color:#17324d; font-weight: 800;
-    text-align: left; cursor:pointer;
-    transition: transform .12s ease, filter .12s ease, background .12s ease;
+.genre-chip {
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  background: #d9dde2;
+  display: grid;
+  place-items: center;
+  box-shadow: inset 0 0 0 6px #ffffff;
+}
 
-    &:hover{ filter:brightness(.98); transform: translateY(-1px); }
+.genre-card.selected .genre-chip {
+  background: #0b6fa4;
+}
 
-    &.active{
-      background: #0b6fa4;
-      color:#fff;
-      box-shadow: 0 6px 18px rgba(11,111,164,.25);
+.genre-chip img {
+  width: 86%;
+  height: auto;
+  display: block;
+}
+
+.genre-title {
+  font-weight: 800;
+  font-size: 15px;
+  text-align: center;
+}
+
+.genres-counter {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #e0e7f0;
+
+  &.ok {
+    color: #aee6ff;
+  }
+}
+
+/* ================== COLUMNA DERECHA: IMAGEN ================== */
+.onb__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center; /* centra verticalmente la imagen dentro de su celda */
+}
+
+.hero-frame {
+  width: 430px;
+  height: 430px;
+  padding: 22px;
+  border-radius: 26px;
+  background: #ffffff;
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  object-fit: contain;
+  display: block;
+
+  &[data-bump] {
+    animation: bumpIn 0.45s cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+}
+
+@keyframes bumpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ================== FOOTER: BULLETS + BOTONES ================== */
+.onb__footer {
+  margin-top: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bullets {
+  display: flex;
+  gap: 8px;
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.55);
+
+    &.active {
+      background: #000000;
+      box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.3);
     }
   }
 }
 
-/* Columna derecha: imagen + animación */
-.onb__right{
-  display:grid; place-items:center;
-  padding: 8px;
-}
+.actions {
+  display: flex;
+  gap: 12px;
 
-.hero{
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 10px 26px rgba(0,0,0,.18);
-  border: 1px solid rgba(12,72,115,.08);
+  .btn {
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-weight: 900;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 14px;
+  }
 
-  /* Re-dispara la animación cada vez que cambia data-bump */
-  &[data-bump]{
-    animation: bumpIn .45s cubic-bezier(.2,.75,.2,1);
+  .btn--ghost {
+    background: #ffffff;
+    color: #0055b3;
+    border-color: #ffffff;
+  }
+
+  .btn--primary {
+    background: #000000;
+    color: #ffffff;
+    border-color: #000000;
+  }
+
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
   }
 }
 
-@keyframes bumpIn{
-  0% { opacity:.0; transform: translateY(6px) scale(.985); }
-  100%{ opacity:1;  transform: translateY(0)    scale(1);    }
-}
+/* ================== RESPONSIVE ================== */
+@media (max-width: 1100px) {
+  .onb__content {
+    height: auto;
+    min-height: 520px;
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+  }
 
-/* Footer */
-.onb__footer{
-  display:flex; align-items:center; justify-content:space-between;
-  padding: 12px 18px;
-  border-top: 1px solid rgba(12,72,115,.12);
-  background: #f2f8fd;
-}
+  .onb__content--genres {
+    justify-items: center;
+  }
 
-.bullets{
-  display:flex; gap:8px;
-  .dot{
-    width:9px; height:9px; border-radius:999px;
-    background:#b7c7d7;
-    &.active{ background:#0b6fa4; box-shadow: 0 0 0 3px rgba(11,111,164,.15); }
+  .onb__right {
+    justify-content: center;
   }
 }
 
-.actions{
-  display:flex; gap:10px;
+@media (max-width: 980px) {
+  .pill-list {
+    grid-template-columns: 1fr;
+  }
 
-  .btn{
-    height:36px; padding:0 14px; border-radius:999px; font-weight:900;
-    border:2px solid transparent; cursor:pointer;
-  }
-  .btn--ghost{
-    background:transparent; color:#0b3255; border-color:#0b6fa4;
-  }
-  .btn--primary{
-    background:#0b6fa4; color:#fff;
-  }
-  .btn:disabled{
-    opacity:.55; pointer-events:none;
+  .genres-grid {
+    grid-template-columns: repeat(3, 190px);
   }
 }
 
-/* Responsive */
-@media (max-width: 980px){
-  .onb__content{ grid-template-columns: 1fr; }
-  .onb__right{ order:-1; }
-  .onb__left .pill-list{ grid-template-columns: 1fr; }
+@media (max-width: 780px) {
+  .genres-grid {
+    grid-template-columns: repeat(2, minmax(0, 190px));
+  }
+}
+
+@media (max-width: 540px) {
+  .genres-grid {
+    grid-template-columns: 1fr;
+  }
 }

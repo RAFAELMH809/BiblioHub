@@ -27,9 +27,10 @@ export class HeaderComponent {
   }
 
   private updateAuthFlag(url: string) {
-    this.isAuthRoute =
-      url.startsWith('/login') ||
-      url.startsWith('/auth') ||
-      url.startsWith('/signup'); // ⬅️ ahora sí forma parte del mismo OR
-  }
+  this.isAuthRoute =
+    url.startsWith('/login') ||
+    url.startsWith('/auth') ||
+    url.startsWith('/signup') ||
+    url.startsWith('/onboarding');
+}
 }

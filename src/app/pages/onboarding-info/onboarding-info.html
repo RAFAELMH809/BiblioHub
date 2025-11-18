@@ -1,55 +1,97 @@
-<!-- Backdrop del modal (ocupa toda la pantalla) -->
 <section class="onb">
-  <div class="onb__modal">
-    <!-- encabezado -->
-    <div class="onb__header">
-      <h2>Cuéntanos sobre ti…</h2>
-      <button class="x" (click)="close()" aria-label="Cerrar">×</button>
-    </div>
+  <div class="onb__inner">
+    <!-- Título fijo, alineado con el resto -->
+    <h2 class="onb__title">Cuéntanos sobre ti…</h2>
 
-    <!-- contenido en dos columnas -->
-    <div class="onb__content">
-      <!-- Columna izquierda: título del paso + opciones tipo pill -->
+    <!-- Contenido central: izquierda (preguntas) + derecha (imagen) -->
+    <div
+      class="onb__content"
+      [ngClass]="{ 'onb__content--genres': isGenresStep }"
+    >
+      <!-- COLUMNA IZQUIERDA -->
       <div class="onb__left">
-        <h3 class="step-title">{{ step.title }}</h3>
+        <!-- ESTE bloque es el que podrás subir/bajar sin tocar la imagen -->
+        <div class="onb__left-inner">
+          <!-- Pasos normales (pills) -->
+          <ng-container *ngIf="!isGenresStep; else genresTpl">
+            <h3 class="step-title">{{ step?.title }}</h3>
 
-        <div class="pill-list">
-          <button
-            class="pill"
-            *ngFor="let opt of step.options"
-            [class.active]="isActive(opt)"
-            (click)="choose(opt)"
-          >
-            {{ opt }}
-          </button>
+            <div class="pill-list" *ngIf="step">
+              <button
+                class="pill"
+                *ngFor="let opt of step.options"
+                [class.active]="isActive(opt)"
+                (click)="choose(opt)"
+              >
+                {{ opt }}
+              </button>
+            </div>
+          </ng-container>
+
+          <!-- Paso final: géneros -->
+          <ng-template #genresTpl>
+            <h3 class="step-title">
+              Elije al menos 3 de los siguientes géneros
+            </h3>
+            <p class="genres-hint">
+              Selecciona al menos <strong>3</strong> géneros que más te
+              interesen.
+            </p>
+
+            <div class="genres-grid">
+              <button
+                type="button"
+                class="genre-card"
+                *ngFor="let g of generos"
+                [class.selected]="g.selected"
+                (click)="toggleGenero(g)"
+              >
+                <span class="genre-chip">
+                  <img [src]="g.icon" [alt]="g.nombre" />
+                </span>
+                <span class="genre-title">{{ g.nombre }}</span>
+              </button>
+            </div>
+
+            <p
+              class="genres-counter"
+              [class.ok]="countSelectedGenres >= 3"
+            >
+              {{ countSelectedGenres }}/3 seleccionados
+            </p>
+          </ng-template>
         </div>
       </div>
 
-      <!-- Columna derecha: imagen con animación al cambiar de paso -->
-      <div class="onb__right">
-        <img
-          class="hero"
-          [src]="heroSrc"
-          alt=""
-          [attr.data-bump]="bumpKey"
-        />
+      <!-- COLUMNA DERECHA (IMAGEN) → NUNCA SE MUEVE -->
+      <div class="onb__right" *ngIf="!isGenresStep">
+        <div class="hero-frame">
+          <img
+            class="hero"
+            [src]="heroSrc"
+            alt=""
+            [attr.data-bump]="bumpKey"
+          />
+        </div>
       </div>
     </div>
 
-    <!-- footer: bullets + acciones -->
+    <!-- FOOTER: bullets + botones (misma posición SIEMPRE) -->
     <div class="onb__footer">
       <div class="bullets">
         <span
           class="dot"
-          *ngFor="let _ of steps; let j = index"
+          *ngFor="let _ of bullets; let j = index"
           [class.active]="j === i"
         ></span>
       </div>
 
       <div class="actions">
-        <button class="btn btn--ghost" (click)="prev()" [disabled]="i === 0">Regresar</button>
+        <button class="btn btn--ghost" (click)="prev()" [disabled]="i === 0">
+          Regresar
+        </button>
         <button class="btn btn--primary" (click)="next()" [disabled]="!canNext()">
-          {{ i < steps.length - 1 ? 'Siguiente' : 'Finalizar' }}
+          {{ i < steps.length ? 'Siguiente' : 'Finalizar' }}
         </button>
       </div>
     </div>

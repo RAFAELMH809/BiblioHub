@@ -11,5 +11,8 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent {
   showPwd = false;
-  togglePwd() { this.showPwd = !this.showPwd; }
+
+  togglePwd() {
+    this.showPwd = !this.showPwd;
+  }
 }

@@ -1,11 +1,12 @@
 <header class="topbar fullbleed">
-  <div class="topbar__row">
+  <!-- ===== Header normal (todas las páginas menos login/auth) ===== -->
+  <div class="topbar__row" *ngIf="!isAuthRoute">
     <!-- Menú hamburguesa -->
     <button class="icon-btn" aria-label="menu">
       <img src="assets/icons/menu.png" alt="" />
     </button>
 
-    <!-- Logo (tamaño visual controlado por --brand-h) -->
+    <!-- Logo -->
     <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
       <img src="assets/brand/logo-full.png" alt="BiblioHub" />
     </a>
@@ -23,8 +24,15 @@
     </div>
   </div>
 
-  <!-- barra azul categorías -->
-  <nav class="catbar fullbleed">
+  <!-- ===== Header minimal para login/auth: solo logo y barra gris ===== -->
+  <div class="topbar__row topbar__row--auth" *ngIf="isAuthRoute">
+    <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
+      <img src="assets/brand/logo-full.png" alt="BiblioHub" />
+    </a>
+  </div>
+
+  <!-- ===== Barra azul de categorías: se oculta en login/auth ===== -->
+  <nav class="catbar fullbleed" *ngIf="!isAuthRoute">
     <div class="catbar__row">
       <a routerLink="/home">Ciencias</a>
       <a routerLink="/home">Matematicas</a>

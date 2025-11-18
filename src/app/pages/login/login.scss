@@ -1,88 +1,159 @@
 /* Ocupa todo el ancho de la ventana (como tu hero) */
-.fullbleed{
-  width:100vw; position:relative; left:50%; right:50%;
-  margin-left:-50vw; margin-right:-50vw;
+.fullbleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 /* ====== Fondo y overlay ====== */
-.auth{
+.auth {
   position: relative;
-  min-height: 72vh; /* area visible bajo el header */
+  min-height: 72vh; /* área visible */
   display: grid;
   place-items: start center;
   padding: 56px 16px 48px;
   background: url("/assets/auth/loginfondo.jpg") center/cover no-repeat;
 }
-.auth__overlay{
-  position:absolute; inset:0;
+
+.auth__overlay {
+  position: absolute;
+  inset: 0;
   /* degradado azul -> verde como tu mockup */
-  background: linear-gradient(180deg, rgba(2,70,138,.65) 0%, rgba(0,156,145,.60) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(2, 70, 138, 0.65) 0%,
+    rgba(0, 156, 145, 0.6) 100%
+  );
+}
+
+/* ====== Logo arriba a la izquierda ====== */
+.auth__logo {
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  z-index: 2; /* arriba del overlay */
+}
+
+.auth__logo img {
+  height: 40px;
+  cursor: pointer;
 }
 
 /* ====== Card centrada (sin caja, estilo limpio sobre el fondo) ====== */
-.auth__content{
-  position: relative; z-index: 1;
-  width: 100%; max-width: 560px;
+.auth__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
   text-align: center;
   color: #fff;
 }
-.auth__title{
+
+.auth__title {
   margin: 0 0 24px;
-  font-size: 36px; font-weight: 800; letter-spacing: .3px;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 /* ====== Form ====== */
-.auth__form{ display: grid; gap: 18px; }
+.auth__form {
+  display: grid;
+  gap: 18px;
+}
 
-.field{
+.field {
   position: relative;
-  background: rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
   border-radius: 14px;
   height: 44px;
-  display:flex; align-items:center;
+  display: flex;
+  align-items: center;
   padding: 0 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
-.field input{
-  flex:1; border:0; outline:none; background:transparent;
-  color:#123; font-weight:700; letter-spacing:.2px;
+
+.field input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #123;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
-.field input::placeholder{ color:#7b8a99; font-weight:700; }
+
+.field input::placeholder {
+  color: #7b8a99;
+  font-weight: 700;
+}
 
 /* Botón ojo dentro del input */
-.field--password .pw-toggle{
-  width: 34px; height: 34px; border: 0; border-radius: 8px;
+.field--password .pw-toggle {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
   background: center/22px 22px no-repeat url("/assets/icons/eye-off.png");
-  cursor: pointer; opacity:.9;
+  cursor: pointer;
+  opacity: 0.9;
 }
+
+/* Cambiar icono cuando el tipo es text */
 :host ::ng-deep app-login .field--password input[type="text"] + .pw-toggle,
-.field--password input[type="text"] + .pw-toggle{
+.field--password input[type="text"] + .pw-toggle {
   background-image: url("/assets/icons/eye.png");
 }
 
 /* Botón principal */
-.btn-primary{
+.btn-primary {
   margin-top: 6px;
   height: 44px;
-  border: 0; border-radius: 12px;
-  background: #003DA5;
-  color:#fff; font-weight:900; letter-spacing:.3px;
-  cursor:pointer; padding:0 22px;
-  box-shadow: 0 8px 18px rgba(11,111,164,.35);
+  border: 0;
+  border-radius: 12px;
+  background: #003da5;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  padding: 0 22px;
+  box-shadow: 0 8px 18px rgba(11, 111, 164, 0.35);
 }
-.btn-primary:hover{ filter: brightness(1.03); }
+
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
 
 /* Enlaces inferiores */
-.auth__links{
+.auth__links {
   margin-top: 28px;
   font-weight: 700;
 }
-.auth__links a{
-  color:#D7F3FF; text-decoration: underline;
+
+.auth__links a {
+  color: #d7f3ff;
+  text-decoration: underline;
 }
 
 /* ===== Responsive ===== */
-@media (max-width:640px){
-  .auth{ padding-top: 40px; }
-  .auth__title{ font-size: 30px; }
+@media (max-width: 640px) {
+  .auth {
+    padding-top: 40px;
+  }
+
+  .auth__title {
+    font-size: 30px;
+  }
+
+  .auth__logo {
+    top: 12px;
+    left: 16px;
+  }
+
+  .auth__logo img {
+    height: 32px;
+  }
 }

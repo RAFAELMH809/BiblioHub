@@ -1,5 +1,13 @@
-<app-header></app-header>
-<main class="container">
+<!-- Header sólo si NO estamos en login/auth -->
+<ng-container *ngIf="!isAuthRoute">
+  <app-header></app-header>
+</ng-container>
+
+<main class="container" [class.main--auth]="isAuthRoute">
   <router-outlet></router-outlet>
 </main>
-<app-footer></app-footer>
+
+<!-- Footer sólo si NO estamos en login/auth -->
+<ng-container *ngIf="!isAuthRoute">
+  <app-footer></app-footer>
+</ng-container>

@@ -1,4 +1,6 @@
 <section class="auth auth--login fullbleed">
+ 
+
   <div class="auth__overlay"></div>
 
   <div class="auth__content">
@@ -7,13 +9,21 @@
     <form class="auth__form" (submit)="$event.preventDefault()">
       <!-- Usuario -->
       <div class="field">
-        <input type="text" placeholder="Usuario" />
+        <input type="text" placeholder="Correo electronico" />
       </div>
 
       <!-- Contraseña -->
       <div class="field field--password">
-        <input [type]="showPwd ? 'text' : 'password'" placeholder="Contraseña" />
-        <button type="button" class="pw-toggle" (click)="togglePwd()" aria-label="Mostrar/ocultar contraseña"></button>
+        <input
+          [type]="showPwd ? 'text' : 'password'"
+          placeholder="Contraseña"
+        />
+        <button
+          type="button"
+          class="pw-toggle"
+          (click)="togglePwd()"
+          aria-label="Mostrar/ocultar contraseña"
+        ></button>
       </div>
 
       <button type="submit" class="btn-primary">Iniciar</button>

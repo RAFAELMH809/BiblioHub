@@ -65,6 +65,7 @@
 .auth-actions,
 .user-actions {
   margin-left: auto;     /* ⬅️ empuja a la derecha */
+  margin-right: -420px;  /* espacio contra el borde derecho (ajusta 8, 16, 32…) */
   display: flex;
   align-items: center;
   gap: 10px;

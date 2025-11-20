@@ -17,7 +17,7 @@
   gap: 14px;
 }
 
-/* Variante para login/auth: barra controlada y logo grande */
+/* Variante login/auth */
 .topbar__row--auth {
   max-width: none;
   width: 100%;
@@ -27,41 +27,32 @@
   justify-content: flex-start;
 }
 
-/* Espaciador entre logo y botones en header normal */
-.topbar__spacer {
-  flex: 1;
-}
-
 /* ========== LOGO ========== */
 
-/* Logo base (MISMO tamaño en todas las pantallas normales) */
+/* tamaño base en todo el sitio */
 .brand-wrap img {
   height: 40px;
   display: block;
 }
 
-/* ===== SOLO HOME: logo más grande sin cambiar la altura de la barra ===== */
+/* Logo más grande SOLO en home (público y de usuario) */
 .topbar--home .brand-wrap img {
-  transform: scale(5.8);          /* tamaño visual (sube/baja 1.1, 1.2, 1.4…) */
-  transform-origin: left center;  /* escala desde la izquierda */
+  height: 40px;  /* súbelo si quieres más grande (70, 80…) */
+  transform: scale(5.8);        /* prueba 1.2, 1.3, 1.5… */
+
 }
 
-/* mover un poco el logo hacia la derecha SOLO en Home */
+/* pequeño ajuste horizontal del logo en home */
 .topbar--home .brand-wrap {
-  margin-left: -490px;              /* prueba 8, 16, 24 según lo que veas mejor */
+  margin-left: -390px;
 }
 
-/* Login/auth: empujar el logo más a la izquierda y hacerlo grande
-   (comportamiento que ya tenías para login/signup/onboarding) */
-.topbar__row--auth .brand-wrap {
-  margin-left: 0;
-}
+/* login/auth: logo gigante centrado a la izquierda */
 .topbar__row--auth .brand-wrap img {
   height: 270px;
   margin-left: -50px;
 }
 
-/* Logo como botón en auth (para poder hacer click) */
 .brand-wrap--button {
   border: 0;
   padding: 0;
@@ -69,15 +60,16 @@
   cursor: pointer;
 }
 
-/* ========= acciones auth (botones derecha) ========= */
-.auth-actions {
+/* ========= ACCIONES DERECHA ========= */
+
+.auth-actions,
+.user-actions {
+  margin-left: auto;     /* ⬅️ empuja a la derecha */
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-left: auto;   /* ⬅️ esto los manda lo más a la derecha */
-  margin-right: -420px;  /* ajusta 16, 24, 32 según te guste */
-
 }
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -110,16 +102,43 @@
   filter: brightness(0.95);
 }
 
-/* ========= BARRA AZUL (categorías / libro / autor / buscar) ========= */
-.catbar {
-  background: linear-gradient(
-    90deg,
-    #003da5 0%,
-    #003da5 90%,
-    #00ad9f 100%
-  );
+/* ==== Botones de usuario (favoritos + avatar) ==== */
+.fav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  height: 36px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background: transparent;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+.fav-btn img {
+  width: 18px;
+  height: 18px;
+}
+.avatar-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  background: #ffffff;
+  cursor: pointer;
+}
+.avatar-btn img {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
 }
 
+/* ========= BARRA AZUL ========= */
+.catbar {
+  background: linear-gradient(90deg, #003da5 0%, #003da5 90%, #00ad9f 100%);
+}
 .catbar__row {
   max-width: 1200px;
   margin: 0 auto;
@@ -128,8 +147,6 @@
   align-items: center;
   gap: 12px;
 }
-
-/* Select + inputs comparten estilo */
 .catbar__select,
 .catbar__input {
   height: 36px;
@@ -141,21 +158,16 @@
   outline: none;
   color: #17324d;
 }
-
-/* Que el select tenga un ancho fijo y los inputs se estiren */
 .catbar__select {
   min-width: 160px;
 }
 .catbar__input {
   flex: 1;
 }
-
 .catbar__input::placeholder {
   color: #7b8a99;
   font-weight: 700;
 }
-
-/* Botón Buscar */
 .catbar__search-btn {
   display: inline-flex;
   align-items: center;
@@ -177,7 +189,6 @@
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
-  /* en móvil ocultamos el logo SOLO en header normal, no en login/auth */
   .topbar__row:not(.topbar__row--auth) .brand-wrap img {
     display: none;
   }
@@ -202,9 +213,11 @@
 }
 
 @media (max-width: 560px) {
-  .auth-actions {
+  .auth-actions,
+  .user-actions {
     gap: 8px;
   }
+
   .btn {
     height: 32px;
     padding: 0 10px;

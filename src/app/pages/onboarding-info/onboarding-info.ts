@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import {
+  UserProfileService,
+  UserProfile,
+} from '../../core/services/user-profile.service';
 
 type StepKey = 'rol' | 'nivel' | 'area' | 'objetivo' | 'tiempo';
 
@@ -25,19 +29,35 @@ type Genero = {
   styleUrls: ['./onboarding-info.scss'],
 })
 export class OnboardingInfoComponent {
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private profileService: UserProfileService
+  ) {}
 
   // ----- Pasos 1-5 -----
   steps: Step[] = [
     {
       key: 'rol',
       title: '¿Desde qué rol utilizarás la plataforma?',
-      options: ['Estudiante', 'Docente', 'Profesionista', 'Investigador (a)', 'Aficionado (a)'],
+      options: [
+        'Estudiante',
+        'Docente',
+        'Profesionista',
+        'Investigador (a)',
+        'Aficionado (a)',
+      ],
     },
     {
       key: 'nivel',
       title: 'Selecciona tu nivel de estudios',
-      options: ['Secundaria', 'Bachillerato', 'Técnico', 'Licenciatura', 'Posgrado', 'Autodidacta'],
+      options: [
+        'Secundaria',
+        'Bachillerato',
+        'Técnico',
+        'Licenciatura',
+        'Posgrado',
+        'Autodidacta',
+      ],
     },
     {
       key: 'area',
@@ -92,13 +112,12 @@ export class OnboardingInfoComponent {
     generos: [],
   };
 
-  // para disparar la animación de la imagen
+  // para animación de la imagen
   bumpKey = 0;
   private bumpImage() {
     this.bumpKey++;
   }
 
-  // ¿estamos en el paso de géneros?
   get isGenresStep(): boolean {
     return this.i === this.steps.length;
   }
@@ -107,24 +126,21 @@ export class OnboardingInfoComponent {
     return this.i === this.steps.length;
   }
 
-  // paso actual (solo 1-5)
   get step(): Step | null {
     return this.isGenresStep ? null : this.steps[this.i];
   }
 
-  // número de bullets = 5 preguntas + 1 de géneros
   get bullets(): any[] {
     return Array(this.steps.length + 1);
   }
 
-  // imágenes por paso (misma carpeta que planificacion.jpg)
   get heroSrc(): string {
     const imgs = [
-      'assets/auth/planificacion.jpg', // rol
-      'assets/auth/kid.jpg',           // nivel
-      'assets/auth/categoricas.jpg',   // área
-      'assets/auth/flecha.jpg',        // objetivo
-      'assets/auth/atiende.jpg',       // tiempo
+      'assets/auth/planificacion.jpg',
+      'assets/auth/kid.jpg',
+      'assets/auth/categoricas.jpg',
+      'assets/auth/flecha.jpg',
+      'assets/auth/atiende.jpg',
     ];
     const index = Math.min(this.i, imgs.length - 1);
     return imgs[index];
@@ -141,7 +157,7 @@ export class OnboardingInfoComponent {
     return this.selected[this.step.key] === opt;
   }
 
-  // ---------- selección de géneros ----------
+  // ---------- géneros ----------
   get countSelectedGenres(): number {
     return this.generos.filter((g) => g.selected).length;
   }
@@ -183,11 +199,32 @@ export class OnboardingInfoComponent {
   private finish() {
     const seleccion = this.generos.filter((g) => g.selected).map((g) => g.key);
     this.selected.generos = seleccion;
+
+    const previous = this.profileService.getProfile() ?? {
+      nombre: '',
+      email: '',
+      generos: [],
+    };
+
+    const updated: UserProfile = {
+      ...previous,
+      generos: seleccion,
+      rol: this.selected.rol,
+      nivel: this.selected.nivel,
+      area: this.selected.area,
+      objetivo: this.selected.objetivo,
+      tiempo: this.selected.tiempo,
+    };
+
+    this.profileService.saveProfile(updated);
+
+    // Opcional: seguir guardando solo géneros aparte
     localStorage.setItem('onboarding.generos', JSON.stringify(seleccion));
+
     this.close();
   }
 
   close() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/home-user');
   }
 }

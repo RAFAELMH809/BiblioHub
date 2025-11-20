@@ -2,19 +2,42 @@
   class="topbar fullbleed"
   [class.topbar--home]="isHomeRoute && !isAuthRoute"
 >
-  <!-- ===== Header normal (HOME y demás páginas NO auth) ===== -->
+  <!-- ===== Header normal (HOME público y HOME de usuario) ===== -->
   <div class="topbar__row" *ngIf="!isAuthRoute">
     <!-- Logo -->
-    <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
+    <a
+      class="brand-wrap"
+      [routerLink]="isUserHomeRoute ? '/home-user' : '/home'"
+      aria-label="BiblioHub"
+    >
       <img src="assets/brand/logo-full.png" alt="BiblioHub" />
     </a>
 
-    <span class="topbar__spacer"></span>
-
-    <!-- Botones Iniciar sesión / Crear cuenta -->
-    <div class="auth-actions">
+    <!-- Botones Iniciar sesión / Crear cuenta (solo home público) -->
+    <div class="auth-actions" *ngIf="!isUserHomeRoute">
       <a class="btn btn--ghost" routerLink="/login">Iniciar sesión</a>
       <a class="btn btn--primary" routerLink="/signup">Crear cuenta</a>
+    </div>
+
+    <!-- Botones de usuario (solo home de usuario) -->
+    <div class="user-actions" *ngIf="isUserHomeRoute">
+      <button
+        class="fav-btn"
+        type="button"
+        routerLink="/favorites"
+      >
+        <img src="assets/icons/heart.png" alt="" />
+        <span>Favoritos</span>
+      </button>
+
+      <button
+        class="avatar-btn"
+        type="button"
+        routerLink="/profile"
+        aria-label="Perfil de usuario"
+      >
+        <img src="assets/icons/avatar.png" alt="Perfil" />
+      </button>
     </div>
   </div>
 
@@ -30,10 +53,9 @@
     </button>
   </div>
 
-  <!-- ===== Barra AZUL de búsqueda (categorías / libro / autor / buscar) ===== -->
+  <!-- ===== Barra AZUL de búsqueda ===== -->
   <nav class="catbar fullbleed" *ngIf="!isAuthRoute">
     <div class="catbar__row">
-      <!-- Categorías -->
       <select class="catbar__select">
         <option value="" disabled selected>Categorías</option>
         <option>Ingeniería</option>
@@ -50,21 +72,9 @@
         <option>Arte</option>
       </select>
 
-      <!-- Libro / título -->
-      <input
-        class="catbar__input"
-        type="text"
-        placeholder="Libros/Título"
-      />
+      <input class="catbar__input" type="text" placeholder="Libros/Título" />
+      <input class="catbar__input" type="text" placeholder="Autor(es)" />
 
-      <!-- Autor -->
-      <input
-        class="catbar__input"
-        type="text"
-        placeholder="Autor(es)"
-      />
-
-      <!-- Botón Buscar (por ahora solo visual) -->
       <button class="catbar__search-btn" type="button">
         <img src="assets/icons/search.png" alt="" />
         <span>Buscar</span>

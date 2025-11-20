@@ -1,0 +1,97 @@
+<!-- HERO FULL WIDTH -->
+<div class="fullbleed">
+  <div class="hero">
+    <button class="hero__nav left" (click)="prevHero()">❮</button>
+    <img [src]="hero[heroIndex]" class="hero__img" alt="" />
+    <button class="hero__nav right" (click)="nextHero()">❯</button>
+
+    <div class="hero__dots">
+      <button
+        *ngFor="let _ of hero; let i = index"
+        class="dot"
+        [class.active]="i === heroIndex"
+        (click)="goHero(i)"
+      ></button>
+    </div>
+  </div>
+</div>
+
+<section class="container"></section>
+
+<!-- === FRANJA BLANCA CON ÍCONOS === -->
+<section class="quick-strip">
+  <div class="quick-strip__card">
+    <ul class="quick-grid">
+      <li class="quick-item">
+        <img src="assets/home/linea/edificios.png" alt="" />
+        <h4>Libros de todas<br />las áreas</h4>
+      </li>
+
+      <li class="quick-item">
+        <img src="assets/home/linea/ia.png" alt="" />
+        <h4>Recomendaciones por<br />IA</h4>
+      </li>
+
+      <li class="quick-item">
+        <img src="assets/home/linea/perfil.png" alt="" />
+        <h4>Recomendaciones a<br />tu perfil</h4>
+      </li>
+    </ul>
+
+    <div class="progress">
+      <div class="progress__line">
+        <span class="p-dot" style="left: 0%"></span>
+        <span class="p-dot" style="left: 50%"></span>
+        <span class="p-dot" style="left: 100%"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== CATEGORÍAS (6 cards) ====== -->
+<section class="categories">
+  <ul class="cat-grid">
+    <li
+      class="cat-card"
+      *ngFor="let c of categorias; trackBy: trackByKey"
+      [style.background-image]="'url(' + c.bg + ')'"
+    >
+      <a
+        class="cat-link"
+        [routerLink]="c.link"
+        [attr.aria-label]="'Libros ' + c.titulo"
+      >
+        <div class="cat-overlay"></div>
+        <img class="cat-icon" [src]="c.icon" alt="" />
+        <div class="cat-title">
+          <span>Libros</span>
+          <strong>{{ c.titulo }}</strong>
+        </div>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<!-- ====== RECOMENDACIONES (mismo layout) ====== -->
+<section class="reco">
+  <div class="reco__inner">
+    <h2 class="reco__title">RECOMENDACIONES</h2>
+
+    <div class="reco__grid">
+      <div
+        *ngFor="let r of recomendaciones; let i = index"
+        class="reco-card"
+        [ngClass]="{
+          'reco-card--left': i === 0,
+          'reco-card--center': i === 1,
+          'reco-card--right': i === 2
+        }"
+      >
+        <div class="reco-card__cover">
+          <img [src]="r.img" [alt]="r.titulo" />
+        </div>
+        <button class="reco-card__btn">Leer más...</button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,79 +1,151 @@
 /* ===== helper para ocupar todo el ancho ===== */
-.fullbleed{
-  width:100vw; position:relative; left:50%; right:50%;
-  margin-left:-50vw; margin-right:-50vw;
+.fullbleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 /* ====== Fondo y overlay (REGISTRO) ====== */
-.auth{
+.auth {
   position: relative;
   min-height: 72vh;
   display: grid;
   place-items: start center;
   padding: 56px 16px 48px;
-  background: url("/assets/auth/registerfondo.jpg") center/cover no-repeat;
+  background: url('/assets/auth/registerfondo.jpg') center / cover no-repeat;
 }
-.auth__overlay{
-  position:absolute; inset:0;
-  background: linear-gradient(180deg, rgba(2,70,138,.65) 0%, rgba(0,156,145,.60) 100%);
+
+.auth__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 70, 138, 0.65) 0%,
+    rgba(0, 156, 145, 0.6) 100%
+  );
 }
 
 /* ====== Contenido ====== */
-.auth__content{
-  position: relative; z-index: 1;
-  width: 100%; max-width: 560px;
+.auth__content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
   text-align: center;
   color: #fff;
 }
-.auth__title{
+
+.auth__title {
   margin: 0 0 24px;
-  font-size: 36px; font-weight: 800; letter-spacing: .3px;
+  font-size: 36px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
 }
 
 /* ====== Form ====== */
-.auth__form{ display: grid; gap: 18px; }
+.auth__form {
+  display: grid;
+  gap: 18px;
+}
 
-.field{
+.field {
   position: relative;
-  background: rgba(255,255,255,1);
+  background: rgba(255, 255, 255, 1);
   border-radius: 14px;
   height: 44px;
-  display:flex; align-items:center;
+  display: flex;
+  align-items: center;
   padding: 0 14px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
-.field input{
-  flex:1; border:0; outline:none; background:transparent;
-  color:#123; font-weight:700; letter-spacing:.2px;
+
+.field input {
+  flex: 1;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #123;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
-.field input::placeholder{ color:#7b8a99; font-weight:700; }
+
+.field input::placeholder {
+  color: #7b8a99;
+  font-weight: 700;
+}
 
 /* Botón ojo */
-.field--password .pw-toggle{
-  width: 34px; height: 34px; border: 0; border-radius: 8px;
-  background: center/22px 22px no-repeat url("/assets/icons/eye-off.png");
-  cursor: pointer; opacity:.9;
+.field--password .pw-toggle {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 8px;
+  background: center / 22px 22px no-repeat
+    url('/assets/icons/eye-off.png');
+  cursor: pointer;
+  opacity: 0.9;
 }
+
 /* Si el input está en texto, cambiamos icono */
-.field--password input[type="text"] + .pw-toggle{
-  background-image: url("/assets/icons/eye.png");
+.field--password input[type='text'] + .pw-toggle {
+  background-image: url('/assets/icons/eye.png');
 }
 
 /* Botón crear cuenta */
-.btn-primary{
+.btn-primary {
   margin-top: 6px;
   height: 44px;
-  border: 0; border-radius: 12px;
-  background: #003DA5;
-  color:#fff; font-weight:900; letter-spacing:.3px;
-  cursor:pointer; padding:0 22px;
-  box-shadow: 0 8px 18px rgba(11,111,164,.35);
+  border: 0;
+  border-radius: 12px;
+  background: #003da5;
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  padding: 0 22px;
+  box-shadow: 0 8px 18px rgba(11, 111, 164, 0.35);
 }
-.btn-primary:hover{ filter: brightness(1.03); }
-.btn-primary--wide{ min-width: 260px; }
+
+.btn-primary:hover {
+  filter: brightness(1.03);
+}
+
+.btn-primary--wide {
+  min-width: 260px;
+}
+
+/* ====== Bloque "¿Ya tienes un perfil?" ====== */
+.auth__switch {
+  margin-top: 14px;
+  font-size: 22px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.auth__switch-link {
+  margin-left: 4px;
+  font-weight: 700;
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth__switch-link:hover {
+  text-decoration: none;
+  filter: brightness(1.05);
+}
 
 /* Responsive */
-@media (max-width:640px){
-  .auth{ padding-top: 40px; }
-  .auth__title{ font-size: 30px; }
+@media (max-width: 640px) {
+  .auth {
+    padding-top: 40px;
+  }
+
+  .auth__title {
+    font-size: 30px;
+  }
 }
+

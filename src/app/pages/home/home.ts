@@ -10,6 +10,11 @@ type Categoria = {
   link?: string;       // navegación (mock por ahora)
 };
 
+type Recomendacion = {
+  titulo: string;
+  img: string;
+};
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -19,8 +24,6 @@ type Categoria = {
 })
 export class HomeComponent {
   // === HERO (banners) ===
-  // Coloca 2–3 imágenes grandes en: assets/covers/
-  // Ej.: banner-1.jpg, banner-2.jpg, banner-3.jpg
   hero: string[] = [
     'assets/covers/banner-1.jpg',
     'assets/covers/banner-2.jpg',
@@ -84,6 +87,22 @@ export class HomeComponent {
     },
   ];
 
-  // Opcional: trackBy para el *ngFor de categorías (perf)
+  // === RECOMENDACIONES ===
+  recomendaciones: Recomendacion[] = [
+    {
+      titulo: 'Los tres mundos',
+      img: 'assets/home/categorias/fondos/julio.png',
+    },
+    {
+      titulo: 'Ciencia de datos',
+      img: 'assets/home/categorias/fondos/cienciadatos.png',
+      imgAlt: 'Ciencia de datos',
+    } as any, // si solo quieres evitar TS aquí, puedes quitar imgAlt y el "as any"
+    {
+      titulo: 'Más lecturas',
+      img: 'assets/home/categorias/fondos/libro3.png',
+    },
+  ];
+
   trackByKey = (_: number, c: Categoria) => c.key;
 }

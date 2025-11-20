@@ -1,22 +1,25 @@
 <!-- HERO FULL WIDTH -->
 <div class="fullbleed">
-  <div class="hero">  <!-- si tenías class="card", quítalo para evitar bordes/radius -->
+  <div class="hero">
     <button class="hero__nav left" (click)="prevHero()">❮</button>
-    <img [src]="hero[heroIndex]" class="hero__img" alt="">
+    <img [src]="hero[heroIndex]" class="hero__img" alt="" />
     <button class="hero__nav right" (click)="nextHero()">❯</button>
 
     <button class="hero__cta btn btn--ghost">Ver más...</button>
 
     <div class="hero__dots">
-      <button *ngFor="let _ of hero; let i = index"
-              class="dot" [class.active]="i===heroIndex"></button>
+      <button
+        *ngFor="let _ of hero; let i = index"
+        class="dot"
+        [class.active]="i === heroIndex"
+        (click)="goHero(i)"
+      ></button>
     </div>
   </div>
 </div>
 
-<!-- Si después tienes más secciones centradas, puedes usar de nuevo el container -->
 <section class="container">
-  <!-- más contenido -->
+  <!-- aquí luego metes más contenido si quieres -->
 </section>
 
 <!-- === FRANJA BLANCA CON ÍCONOS === -->
@@ -25,26 +28,25 @@
     <ul class="quick-grid">
       <li class="quick-item">
         <img src="assets/home/linea/edificios.png" alt="" />
-        <h4>Libros de todas<br>las areas</h4>
+        <h4>Libros de todas<br />las áreas</h4>
       </li>
 
       <li class="quick-item">
         <img src="assets/home/linea/ia.png" alt="" />
-        <h4>Recomendaciones por<br>IA</h4>
+        <h4>Recomendaciones por<br />IA</h4>
       </li>
 
       <li class="quick-item">
         <img src="assets/home/linea/perfil.png" alt="" />
-        <h4>Recomendaciones a<br>tu perfil</h4>
+        <h4>Recomendaciones a<br />tu perfil</h4>
       </li>
     </ul>
 
-    <!-- línea con puntos -->
     <div class="progress">
       <div class="progress__line">
-        <span class="p-dot" style="left:0%"></span>
-        <span class="p-dot" style="left:50%"></span>
-        <span class="p-dot" style="left:100%"></span>
+        <span class="p-dot" style="left: 0%"></span>
+        <span class="p-dot" style="left: 50%"></span>
+        <span class="p-dot" style="left: 100%"></span>
       </div>
     </div>
   </div>
@@ -53,10 +55,16 @@
 <!-- ====== CATEGORÍAS (6 cards) ====== -->
 <section class="categories">
   <ul class="cat-grid">
-    <li class="cat-card"
-        *ngFor="let c of categorias"
-        [style.background-image]="'url(' + c.bg + ')'">
-      <a class="cat-link" [routerLink]="c.link" [attr.aria-label]="'Libros ' + c.titulo">
+    <li
+      class="cat-card"
+      *ngFor="let c of categorias; trackBy: trackByKey"
+      [style.background-image]="'url(' + c.bg + ')'"
+    >
+      <a
+        class="cat-link"
+        [routerLink]="c.link"
+        [attr.aria-label]="'Libros ' + c.titulo"
+      >
         <div class="cat-overlay"></div>
         <img class="cat-icon" [src]="c.icon" alt="" />
         <div class="cat-title">
@@ -66,4 +74,37 @@
       </a>
     </li>
   </ul>
+</section>
+
+<!-- ====== NUEVA SECCIÓN RECOMENDACIONES ====== -->
+<section class="reco">
+  <div class="reco__inner">
+    <h2 class="reco__title">RECOMENDACIONES</h2>
+
+    <div class="reco__grid">
+      <!-- 1er libro: izquierda -->
+      <div class="reco-card reco-card--left">
+        <div class="reco-card__cover">
+          <img src="assets/home/categorias/fondos/julio.png" alt="Los tres mundos" />
+        </div>
+        <button class="reco-card__btn">Leer más...</button>
+      </div>
+
+      <!-- 2º libro: centro -->
+      <div class="reco-card reco-card--center">
+        <div class="reco-card__cover">
+          <img src="assets/home/categorias/fondos/cienciadatos.png" alt="Ciencia de datos" />
+        </div>
+        <button class="reco-card__btn">Leer más...</button>
+      </div>
+
+      <!-- 3er libro: derecha -->
+      <div class="reco-card reco-card--right">
+        <div class="reco-card__cover">
+          <img src="assets/home/categorias/fondos/libro3.png" alt="Libro 3" />
+        </div>
+        <button class="reco-card__btn">Leer más...</button>
+      </div>
+    </div>
+  </div>
 </section>

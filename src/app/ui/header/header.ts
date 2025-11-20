@@ -11,26 +11,47 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
-  // true cuando estamos en rutas de autenticación
+  // rutas de autenticación (login, signup, onboarding)
   isAuthRoute = false;
 
-  constructor(private router: Router) {
-    // valor inicial (por si recargas directamente /login o /signup)
-    this.updateAuthFlag(this.router.url);
+  // estamos en /home ?
+  isHomeRoute = false;
 
-    // escuchar cambios de ruta
+  // url actual (para el click del logo en auth)
+  currentUrl = '';
+
+  constructor(private router: Router) {
+    this.updateFlags(this.router.url);
+
     this.router.events
       .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
       .subscribe((event) => {
-        this.updateAuthFlag(event.urlAfterRedirects);
+        this.updateFlags(event.urlAfterRedirects);
       });
   }
 
-  private updateAuthFlag(url: string) {
-  this.isAuthRoute =
-    url.startsWith('/login') ||
-    url.startsWith('/auth') ||
-    url.startsWith('/signup') ||
-    url.startsWith('/onboarding');
-}
+  private updateFlags(url: string) {
+    this.currentUrl = url;
+
+    // login / signup / onboarding
+    this.isAuthRoute =
+      url.startsWith('/login') ||
+      url.startsWith('/auth') ||
+      url.startsWith('/signup') ||
+      url.startsWith('/onboarding');
+
+    // home (incluye / y /home/lo-que-sea)
+    this.isHomeRoute = url === '/' || url.startsWith('/home');
+  }
+
+  // Click en el logo cuando estamos en header de auth (login / signup / onboarding)
+  onAuthLogoClick() {
+    // En onboarding NO hacemos nada
+    if (this.currentUrl.startsWith('/onboarding')) {
+      return;
+    }
+
+    // En login y signup sí vamos al home
+    this.router.navigateByUrl('/home');
+  }
 }

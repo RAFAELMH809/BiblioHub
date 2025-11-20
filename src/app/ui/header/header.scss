@@ -2,7 +2,7 @@
   display: block;
 }
 
-/* ===== fila superior ===== */
+/* ===== fila superior (gris) ===== */
 .topbar {
   color: #fff;
   background: #6b8095;
@@ -19,80 +19,64 @@
 
 /* Variante para login/auth: barra controlada y logo grande */
 .topbar__row--auth {
-  /* sobrescribimos lo de .topbar__row */
-  max-width: none;    /* que use todo el ancho */
+  max-width: none;
   width: 100%;
-  margin: 0;          /* quitamos el centrado */
-  padding: 0 4px;    /* sin padding vertical extra */
+  margin: 0;
+  padding: 0 4px;
   height: 72px;
-  justify-content: flex-start;  /* logo a la izquierda */
+  justify-content: flex-start;
 }
 
-
-/* Botón menú */
-.icon-btn {
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-}
-.icon-btn img {
-  width: 28px;
-  height: 28px;
+/* Espaciador entre logo y botones en header normal */
+.topbar__spacer {
+  flex: 1;
 }
 
-/* Logo base (todas las páginas) */
+/* ========== LOGO ========== */
+
+/* Logo base (MISMO tamaño en todas las pantallas normales) */
 .brand-wrap img {
   height: 40px;
   display: block;
 }
 
-/* Logo más grande SOLO en login/auth, sin crecer la barra */
+/* ===== SOLO HOME: logo más grande sin cambiar la altura de la barra ===== */
+.topbar--home .brand-wrap img {
+  transform: scale(5.8);          /* tamaño visual (sube/baja 1.1, 1.2, 1.4…) */
+  transform-origin: left center;  /* escala desde la izquierda */
+}
+
+/* mover un poco el logo hacia la derecha SOLO en Home */
+.topbar--home .brand-wrap {
+  margin-left: -490px;              /* prueba 8, 16, 24 según lo que veas mejor */
+}
+
+/* Login/auth: empujar el logo más a la izquierda y hacerlo grande
+   (comportamiento que ya tenías para login/signup/onboarding) */
+.topbar__row--auth .brand-wrap {
+  margin-left: 0;
+}
 .topbar__row--auth .brand-wrap img {
-  height: 270px;             /* ajústalo si lo quieres más grande o más chico */
+  height: 270px;
+  margin-left: -50px;
 }
 
-/* buscador */
-.search {
-  flex: 1;
-  position: relative;
-  max-width: 560px;
-  height: 40px;
-  margin: 0 8px;
-  background: #8fa2b6;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
-  gap: 10px;
-}
-.search__icon {
-  width: 20px;
-  height: 20px;
-  opacity: 0.95;
-}
-.search__input {
-  flex: 1;
-  height: 100%;
+/* Logo como botón en auth (para poder hacer click) */
+.brand-wrap--button {
   border: 0;
+  padding: 0;
   background: transparent;
-  color: #fff;
-  outline: none;
-  font-weight: 700;
-  letter-spacing: 0.3px;
-}
-.search__input::placeholder {
-  color: #eaf0f6;
+  cursor: pointer;
 }
 
-/* acciones auth */
+/* ========= acciones auth (botones derecha) ========= */
 .auth-actions {
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;   /* ⬅️ esto los manda lo más a la derecha */
+  margin-right: -420px;  /* ajusta 16, 24, 32 según te guste */
+
 }
 .btn {
   display: inline-flex;
@@ -126,43 +110,90 @@
   filter: brightness(0.95);
 }
 
-/* barra azul de categorías */
+/* ========= BARRA AZUL (categorías / libro / autor / buscar) ========= */
 .catbar {
-  background: #0b6fa4;
+  background: linear-gradient(
+    90deg,
+    #003da5 0%,
+    #003da5 90%,
+    #00ad9f 100%
+  );
 }
+
 .catbar__row {
   max-width: 1200px;
   margin: 0 auto;
+  padding: 10px 16px;
   display: flex;
-  gap: 28px;
-  padding: 12px 16px;
+  align-items: center;
+  gap: 12px;
 }
-.catbar__row a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 900;
-  font-size: 18px;
-  padding: 8px 0;
-  border-bottom: 3px solid transparent;
+
+/* Select + inputs comparten estilo */
+.catbar__select,
+.catbar__input {
+  height: 36px;
+  border-radius: 4px;
+  border: 1px solid #dde4ee;
+  background: #f5f5f5;
+  font-weight: 700;
+  padding: 0 10px;
+  outline: none;
+  color: #17324d;
 }
-.catbar__row a.active {
-  border-color: #aee6ff;
+
+/* Que el select tenga un ancho fijo y los inputs se estiren */
+.catbar__select {
+  min-width: 160px;
+}
+.catbar__input {
+  flex: 1;
+}
+
+.catbar__input::placeholder {
+  color: #7b8a99;
+  font-weight: 700;
+}
+
+/* Botón Buscar */
+.catbar__search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 4px;
+  border: 0;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.catbar__search-btn img {
+  width: 18px;
+  height: 18px;
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
-  /* en móvil ocultamos el logo SOLO en header normal, no en login */
+  /* en móvil ocultamos el logo SOLO en header normal, no en login/auth */
   .topbar__row:not(.topbar__row--auth) .brand-wrap img {
     display: none;
   }
 
-  .search {
-    max-width: none;
-  }
   .catbar__row {
-    gap: 16px;
-    overflow: auto;
+    flex-wrap: wrap;
   }
+
+  .catbar__select {
+    flex: 1 1 100%;
+  }
+
+  .catbar__input {
+    flex: 1 1 calc(50% - 6px);
+  }
+
   .btn {
     height: 34px;
     padding: 0 12px;
@@ -179,14 +210,8 @@
     padding: 0 10px;
     font-size: 12.5px;
   }
-}
 
-/* Login/auth: empujar el logo más a la izquierda */
-.topbar__row--auth .brand-wrap {
-  margin-left: 0;
-}
-
-.topbar__row--auth .brand-wrap img {
-  height: 270px;      /* el tamaño que ya estás usando */
-  margin-left: -50px;  /* ⬅️ prueba con -8, -12, -16 hasta que te guste */
+  .catbar__input {
+    flex: 1 1 100%;
+  }
 }

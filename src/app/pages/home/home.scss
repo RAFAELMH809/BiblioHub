@@ -192,3 +192,106 @@
   .cat-title span{ font-size: 13px; }
   .cat-title strong{ font-size: 17px; }
 }
+
+/* ====== RECOMENDACIONES ====== */
+
+.reco {
+  width: 100%;
+  background: linear-gradient(180deg, #003da5 0%, #00ad9f 100%);
+  padding: 32px 0 40px;
+  color: #ffffff;
+}
+
+.reco__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reco__title {
+  margin: 0 0 24px;
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+/* CONTENEDOR DE LAS 3 TARJETAS
+   En desktop usamos flex para poder mover cada una de manera individual */
+.reco__grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;   /* 1ª a la izq, 2ª centro, 3ª der */
+  gap: 24px;                        /* separación general entre ellas */
+}
+
+/* Tarjeta base */
+.reco-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 230px;                     /* ancho fijo para las tres */
+}
+
+/* Clases INDIVIDUALES: ajusta estos márgenes como quieras */
+.reco-card--left {
+  margin-left: -160px;               /* ajusta (-20, -5, 0…) */
+}
+
+.reco-card--center {
+  margin-top: 0;                    /* por si quieres subir/bajar solo esta */
+}
+
+.reco-card--right {
+  margin-right: -160px;              /* ajusta (0, 10, 20…) */
+}
+
+.reco-card__cover img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+}
+
+.reco-card__btn {
+  margin-top: 4px;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 24px;
+  font-weight: 800;
+  background: #ffffff;
+  color: #003da5;
+  cursor: pointer;
+}
+
+.reco-card__btn:hover {
+  filter: brightness(0.96);
+}
+
+/* Responsive para recomendaciones */
+@media (max-width: 900px) {
+  .reco__grid {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px 32px;
+  }
+
+  .reco-card {
+    width: 220px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .reco__grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reco-card {
+    width: 70%;
+    max-width: 260px;
+  }
+}

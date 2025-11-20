@@ -1,44 +1,74 @@
-<header class="topbar fullbleed">
-  <!-- ===== Header normal (todas las páginas menos login/auth) ===== -->
+<header
+  class="topbar fullbleed"
+  [class.topbar--home]="isHomeRoute && !isAuthRoute"
+>
+  <!-- ===== Header normal (HOME y demás páginas NO auth) ===== -->
   <div class="topbar__row" *ngIf="!isAuthRoute">
-    <!-- Menú hamburguesa -->
-    <button class="icon-btn" aria-label="menu">
-      <img src="assets/icons/menu.png" alt="" />
-    </button>
-
     <!-- Logo -->
     <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
       <img src="assets/brand/logo-full.png" alt="BiblioHub" />
     </a>
 
-    <!-- Buscador -->
-    <div class="search">
-      <img class="search__icon" src="assets/icons/search.png" alt="" />
-      <input class="search__input" placeholder="Buscar" />
-    </div>
+    <span class="topbar__spacer"></span>
 
-    <!-- Acciones de autenticación -->
+    <!-- Botones Iniciar sesión / Crear cuenta -->
     <div class="auth-actions">
       <a class="btn btn--ghost" routerLink="/login">Iniciar sesión</a>
       <a class="btn btn--primary" routerLink="/signup">Crear cuenta</a>
     </div>
   </div>
 
-  <!-- ===== Header minimal para login/auth: solo logo y barra gris ===== -->
+  <!-- ===== Header minimal para login/signup/onboarding ===== -->
   <div class="topbar__row topbar__row--auth" *ngIf="isAuthRoute">
-    <a class="brand-wrap" routerLink="/home" aria-label="BiblioHub">
+    <button
+      type="button"
+      class="brand-wrap brand-wrap--button"
+      (click)="onAuthLogoClick()"
+      aria-label="BiblioHub"
+    >
       <img src="assets/brand/logo-full.png" alt="BiblioHub" />
-    </a>
+    </button>
   </div>
 
-  <!-- ===== Barra azul de categorías: se oculta en login/auth ===== -->
+  <!-- ===== Barra AZUL de búsqueda (categorías / libro / autor / buscar) ===== -->
   <nav class="catbar fullbleed" *ngIf="!isAuthRoute">
     <div class="catbar__row">
-      <a routerLink="/home">Ciencias</a>
-      <a routerLink="/home">Matematicas</a>
-      <a routerLink="/home">Historia</a>
-      <a routerLink="/home" class="active">Negocios</a>
-      <a routerLink="/home">Ingeniería</a>
+      <!-- Categorías -->
+      <select class="catbar__select">
+        <option value="" disabled selected>Categorías</option>
+        <option>Ingeniería</option>
+        <option>Salud</option>
+        <option>Educación</option>
+        <option>Cultura</option>
+        <option>Religión</option>
+        <option>Gastronomía</option>
+        <option>Historia</option>
+        <option>Tecnologías</option>
+        <option>Negocios</option>
+        <option>Ciencias</option>
+        <option>Matemáticas</option>
+        <option>Arte</option>
+      </select>
+
+      <!-- Libro / título -->
+      <input
+        class="catbar__input"
+        type="text"
+        placeholder="Libros/Título"
+      />
+
+      <!-- Autor -->
+      <input
+        class="catbar__input"
+        type="text"
+        placeholder="Autor(es)"
+      />
+
+      <!-- Botón Buscar (por ahora solo visual) -->
+      <button class="catbar__search-btn" type="button">
+        <img src="assets/icons/search.png" alt="" />
+        <span>Buscar</span>
+      </button>
     </div>
   </nav>
 </header>

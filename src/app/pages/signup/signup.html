@@ -5,21 +5,55 @@
     <h1 class="auth__title">Crear cuenta</h1>
 
     <form class="auth__form" (submit)="$event.preventDefault(); crearCuenta()">
-      <div class="field"><input type="text" placeholder="Nombre*" /></div>
-      <div class="field"><input type="text" placeholder="Apellidos*" /></div>
-      <div class="field"><input type="email" placeholder="Correo*" /></div>
+      <div class="field">
+        <input type="text" placeholder="Nombre*" />
+      </div>
 
-      <div class="field field--password">
-        <input [type]="showPwd1 ? 'text' : 'password'" placeholder="Contraseña*" />
-        <button type="button" class="pw-toggle" (click)="toggle1()" aria-label="Mostrar/ocultar contraseña"></button>
+      <div class="field">
+        <input type="text" placeholder="Apellidos*" />
+      </div>
+
+      <div class="field">
+        <input type="email" placeholder="Correo*" />
       </div>
 
       <div class="field field--password">
-        <input [type]="showPwd2 ? 'text' : 'password'" placeholder="Confirmar contraseña*" />
-        <button type="button" class="pw-toggle" (click)="toggle2()" aria-label="Mostrar/ocultar contraseña"></button>
+        <input
+          [type]="showPwd1 ? 'text' : 'password'"
+          placeholder="Contraseña*"
+        />
+        <button
+          type="button"
+          class="pw-toggle"
+          (click)="toggle1()"
+          aria-label="Mostrar/ocultar contraseña"
+        ></button>
       </div>
 
-      <button type="submit" class="btn-primary btn-primary--wide">Crear cuenta</button>
+      <div class="field field--password">
+        <input
+          [type]="showPwd2 ? 'text' : 'password'"
+          placeholder="Confirmar contraseña*"
+        />
+        <button
+          type="button"
+          class="pw-toggle"
+          (click)="toggle2()"
+          aria-label="Mostrar/ocultar contraseña"
+        ></button>
+      </div>
+
+      <button type="submit" class="btn-primary btn-primary--wide">
+        Crear cuenta
+      </button>
+
+      <!-- Bloque para ir al login -->
+      <div class="auth__switch">
+        ¿Ya tienes un perfil?
+        <a routerLink="/login" class="auth__switch-link">
+          Inicia sesión
+        </a>
+      </div>
     </form>
   </div>
 </section>

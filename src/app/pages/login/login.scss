@@ -128,15 +128,21 @@
 }
 
 /* Enlaces inferiores */
+/* Enlaces inferiores */
 .auth__links {
   margin-top: 28px;
   font-weight: 700;
+  font-size: 18px;      /* 👈 tamaño del texto de los <p> */
+  line-height: 1.4;
 }
 
+/* Link dentro del texto */
 .auth__links a {
   color: #d7f3ff;
   text-decoration: underline;
+  font-size: 18px;      /* 👈 mismo tamaño que el texto, si quieres */
 }
+
 
 /* ===== Responsive ===== */
 @media (max-width: 640px) {

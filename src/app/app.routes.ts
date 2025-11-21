@@ -12,16 +12,16 @@ import { HomeUserComponent } from './pages/home-user/home-user';
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
 
-  // Home público
   { path: 'home', component: HomeComponent },
-
-  // Home de usuario
   { path: 'home-user', component: HomeUserComponent },
 
   { path: 'auth', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'onboarding/info', component: OnboardingInfoComponent },
+
+  // 👇 corregido
+  { path: 'onboarding-info', component: OnboardingInfoComponent },
+
   { path: 'book/:id', component: BookDetailComponent },
   { path: 'reader/:id', component: ReaderComponent },
   { path: 'favorites', component: FavoritesComponent },

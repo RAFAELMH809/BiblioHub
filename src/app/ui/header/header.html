@@ -1,4 +1,5 @@
 <header
+  *ngIf="!isProfileRoute"
   class="topbar fullbleed"
   [class.topbar--home]="isHomeRoute && !isAuthRoute"
 >

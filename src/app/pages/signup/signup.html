@@ -1,3 +1,4 @@
+<!-- src/app/pages/signup/signup.html -->
 <section class="auth auth--register fullbleed">
   <div class="auth__overlay"></div>
 
@@ -6,21 +7,38 @@
 
     <form class="auth__form" (submit)="$event.preventDefault(); crearCuenta()">
       <div class="field">
-        <input type="text" placeholder="Nombre*" />
+        <input
+          type="text"
+          placeholder="Nombre*"
+          [(ngModel)]="nombre"
+          name="nombre"
+          required
+        />
       </div>
 
       <div class="field">
-        <input type="text" placeholder="Apellidos*" />
+        <input
+          type="text"
+          placeholder="Apellidos*"
+          name="apellidos"
+        />
       </div>
 
       <div class="field">
-        <input type="email" placeholder="Correo*" />
+        <input
+          type="email"
+          placeholder="Correo*"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
       </div>
 
       <div class="field field--password">
         <input
           [type]="showPwd1 ? 'text' : 'password'"
           placeholder="Contraseña*"
+          name="password"
         />
         <button
           type="button"
@@ -34,6 +52,7 @@
         <input
           [type]="showPwd2 ? 'text' : 'password'"
           placeholder="Confirmar contraseña*"
+          name="passwordConfirm"
         />
         <button
           type="button"
@@ -42,6 +61,9 @@
           aria-label="Mostrar/ocultar contraseña"
         ></button>
       </div>
+
+      <!-- Mensaje de error -->
+      <p class="auth__error" *ngIf="error">{{ error }}</p>
 
       <button type="submit" class="btn-primary btn-primary--wide">
         Crear cuenta

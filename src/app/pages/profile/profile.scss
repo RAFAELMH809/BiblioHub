@@ -1,0 +1,182 @@
+/* src/app/pages/profile/profile.scss */
+
+.profile-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #004c99 0%, #007fb3 40%, #00a6a3 100%);
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+}
+
+/* HEADER GRIS SUPERIOR */
+.profile-header {
+  background-color: #d0d0d0;
+  padding: 26px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  &__logo-btn {
+    position: absolute;
+    left: -45px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  /* ajusta este tamaño si quieres el logo aún más grande o más chico */
+  &__logo {
+    height: 275px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+  }
+}
+
+/* CONTENIDO PRINCIPAL */
+.profile-main {
+  flex: 1;
+  padding: 32px 24px 40px;
+  position: relative;
+}
+
+/* Flecha regresar */
+.profile-back {
+  background: transparent;
+  border: none;
+  padding: 0;
+  position: absolute;
+  left: 24px;
+  top: 24px;
+  cursor: pointer;
+
+  img {
+    height: 28px;
+    width: 28px;
+  }
+}
+
+/* Avatar + botón Editar (MÁS GRANDE Y CENTRADO) */
+.profile-avatar {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  &__image {
+    width: 200px;   /* antes 140px */
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  }
+
+  &__edit {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+  }
+}
+
+/* Bloques de información (Nombre, Correo, Info)
+   → Centrados y con íconos más grandes */
+.profile-section {
+  display: flex;
+  align-items: center;     /* centrado vertical icono/texto */
+  gap: 16px;
+  margin-top: 32px;
+  max-width: 520px;        /* centra el bloque en pantallas grandes */
+  margin-left: auto;
+  margin-right: auto;
+
+  &__icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__icon img {
+    width: 48px;           /* antes 32px */
+    height: 48px;
+  }
+
+  &__content {
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 4px 0 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #ffffff;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+  }
+}
+
+/* Botones de acción (MÁS GRANDES Y PROTAGÓNICOS) */
+.profile-actions {
+  margin-top: 48px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+
+  .btn {
+    min-width: 200px;      /* antes 150px */
+    padding: 14px 28px;    /* más altos y anchos */
+    border-radius: 999px;
+    border: none;
+    font-size: 16px;       /* antes 14px */
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-primary {
+    background-color: #1467c3;
+    color: #ffffff;
+  }
+
+  .btn-danger {
+    background-color: #ff4b4b;
+    color: #ffffff;
+  }
+}
+
+/* Pequeño ajuste para pantallas muy grandes */
+@media (min-width: 1200px) {
+  .profile-main {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}

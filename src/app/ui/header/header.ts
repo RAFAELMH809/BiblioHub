@@ -20,6 +20,9 @@ export class HeaderComponent {
   // SOLO home de usuario (/home-user)
   isUserHomeRoute = false;
 
+  // SOLO perfil (/profile) → aquí NO queremos mostrar el header
+  isProfileRoute = false;
+
   currentUrl = '';
 
   constructor(private router: Router) {
@@ -43,6 +46,9 @@ export class HeaderComponent {
 
     // para agrandar el logo en ambos homes
     this.isHomeRoute = url.startsWith('/home') || url.startsWith('/home-user');
+
+    // perfil
+    this.isProfileRoute = url.startsWith('/profile');
   }
 
   onAuthLogoClick() {

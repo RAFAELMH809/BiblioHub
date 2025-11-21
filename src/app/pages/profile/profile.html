@@ -1,13 +1,104 @@
-<section class="container">
-  <div class="card" style="padding:24px; text-align:center;">
-    <img src="/assets/avatar.svg" alt="" width="120" style="border-radius:999px;">
-    <p><a class="btn" style="margin-top:8px">Editar</a></p>
-    <h2>Nombre</h2><p>Rafael Melchor Hernández</p>
-    <h3>Correo</h3><p><a href="mailto:correo@dominio.com">correo@dominio.com</a></p>
-    <h3>Info.</h3><p>Estudiante ingeniería de software<br>Áreas: Tecnologías, Ingeniería, Educación</p>
-    <div style="display:flex; gap:16px; justify-content:center; margin-top:12px;">
-      <button class="btn" style="background:#19B37A">Agregar información</button>
-      <button class="btn" style="background:#e11d48">Cerrar sesión</button>
+<section class="profile-page">
+  <!-- HEADER GRIS -->
+  <header class="profile-header">
+    <button
+      type="button"
+      class="profile-header__logo-btn"
+      (click)="goHomeUser()"
+      aria-label="Ir al inicio de usuario"
+    >
+      <img
+        src="assets/brand/logo-full.png"
+        alt="BiblioHub"
+        class="profile-header__logo"
+      />
+    </button>
+    <h1 class="profile-header__title">Perfil</h1>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL (DEGRADADO) -->
+  <main class="profile-main" *ngIf="profile$ | async as user">
+    <!-- Flecha regresar -->
+    <button
+      type="button"
+      class="profile-back"
+      (click)="goBack()"
+      aria-label="Volver"
+    >
+      <img src="assets/profile/flechaizq.png" alt="Volver" />
+    </button>
+
+    <!-- Avatar -->
+    <div class="profile-avatar">
+      <img
+        src="assets/profile/avatarprofile.png"
+        alt="Avatar del usuario"
+        class="profile-avatar__image"
+      />
+      <button type="button" class="profile-avatar__edit">
+        Editar
+      </button>
     </div>
-  </div>
+
+    <!-- Nombre -->
+    <section class="profile-section">
+      <div class="profile-section__icon">
+        <img src="assets/profile/user.png" alt="Icono usuario" />
+      </div>
+      <div class="profile-section__content">
+        <h3>Nombre</h3>
+        <p>{{ user.name }}</p>
+      </div>
+    </section>
+
+    <!-- Correo -->
+    <section class="profile-section">
+      <div class="profile-section__icon">
+        <img src="assets/profile/correo.png" alt="Icono correo" />
+      </div>
+      <div class="profile-section__content">
+        <h3>Correo</h3>
+        <p>
+          <a *ngIf="user.email" [href]="'mailto:' + user.email">
+            {{ user.email }}
+          </a>
+          <span *ngIf="!user.email">Sin correo registrado</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Info -->
+    <section class="profile-section">
+      <div class="profile-section__icon">
+        <img src="assets/profile/info.png" alt="Icono información" />
+      </div>
+      <div class="profile-section__content">
+        <h3>Info.</h3>
+        <p>{{ getDescription(user) }}</p>
+        <p *ngIf="user.genres?.length">
+          Áreas:
+          {{ formatGenres(user.genres) }}
+        </p>
+      </div>
+    </section>
+
+    <!-- BOTONES -->
+    <div class="profile-actions">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="goToOnboardingInfo()"
+      >
+        Agregar información
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="logout()"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+  </main>
 </section>

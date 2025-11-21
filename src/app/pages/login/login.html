@@ -1,22 +1,31 @@
+<!-- src/app/pages/login/login.html -->
 <section class="auth auth--login fullbleed">
- 
-
   <div class="auth__overlay"></div>
 
   <div class="auth__content">
     <h1 class="auth__title">Iniciar sesión</h1>
 
-    <form class="auth__form" (submit)="$event.preventDefault()">
-      <!-- Usuario -->
+    <form
+      class="auth__form"
+      (submit)="$event.preventDefault(); iniciarSesion()"
+    >
+      <!-- Correo -->
       <div class="field">
-        <input type="text" placeholder="Correo electronico" />
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
       </div>
 
-      <!-- Contraseña -->
+      <!-- Contraseña (solo visual por ahora) -->
       <div class="field field--password">
         <input
           [type]="showPwd ? 'text' : 'password'"
           placeholder="Contraseña"
+          name="password"
         />
         <button
           type="button"
@@ -25,6 +34,9 @@
           aria-label="Mostrar/ocultar contraseña"
         ></button>
       </div>
+
+      <!-- Mensaje de error -->
+      <p class="auth__error" *ngIf="error">{{ error }}</p>
 
       <button type="submit" class="btn-primary">Iniciar</button>
     </form>

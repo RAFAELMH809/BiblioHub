@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 type Categoria = {
   key: string;
@@ -11,6 +11,7 @@ type Categoria = {
 };
 
 type Recomendacion = {
+  id: string;      // 👈 id que usaremos en /book/:id
   titulo: string;
   img: string;
 };
@@ -23,6 +24,8 @@ type Recomendacion = {
   styleUrls: ['./home-user.scss'],
 })
 export class HomeUserComponent {
+  constructor(private router: Router) {}
+
   // HERO igual que en home
   hero: string[] = [
     'assets/covers/banner-1.jpg',
@@ -87,21 +90,30 @@ export class HomeUserComponent {
     },
   ];
 
-  // RECOMENDACIONES: primer y último cambiados
+  // RECOMENDACIONES
+  // ⚠️ Importante: los id deben coincidir con los que pusimos en BOOKS de book-detail.ts
   recomendaciones: Recomendacion[] = [
     {
+      id: 'ingenieria-soft',
       titulo: 'Ingeniería de Software',
       img: 'assets/home/categorias/fondos/software.png',
     },
     {
+      id: 'ciencia-datos',
       titulo: 'Ciencia de Datos',
       img: 'assets/home/categorias/fondos/cienciadatos.png',
     },
     {
+      id: 'produccion-patrones',
       titulo: 'Patrones de diseño',
       img: 'assets/home/categorias/fondos/patrones.png',
     },
   ];
 
   trackByKey = (_: number, c: Categoria) => c.key;
+
+  // 👇 Cuando el usuario da click en "Leer más..."
+  goToBook(r: Recomendacion) {
+    this.router.navigate(['/book', r.id]);
+  }
 }

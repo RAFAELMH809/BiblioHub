@@ -72,7 +72,7 @@
   </ul>
 </section>
 
-<!-- ====== RECOMENDACIONES (mismo layout) ====== -->
+<!-- ====== RECOMENDACIONES ====== -->
 <section class="reco">
   <div class="reco__inner">
     <h2 class="reco__title">RECOMENDACIONES</h2>
@@ -90,7 +90,15 @@
         <div class="reco-card__cover">
           <img [src]="r.img" [alt]="r.titulo" />
         </div>
-        <button class="reco-card__btn">Leer más...</button>
+
+        <!-- 👇 aquí conectamos el click con el detalle del libro -->
+        <button
+          class="reco-card__btn"
+          type="button"
+          (click)="goToBook(r)"
+        >
+          Leer más...
+        </button>
       </div>
     </div>
   </div>

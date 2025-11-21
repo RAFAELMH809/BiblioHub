@@ -17,10 +17,10 @@ export class HeaderComponent {
   // home público o home de usuario (para agrandar logo)
   isHomeRoute = false;
 
-  // SOLO home de usuario (/home-user)
+  // rutas en contexto de usuario (home-user, books, reader, favorites...)
   isUserHomeRoute = false;
 
-  // SOLO perfil (/profile) → aquí NO queremos mostrar el header
+  // para ocultar header en perfil
   isProfileRoute = false;
 
   currentUrl = '';
@@ -42,12 +42,20 @@ export class HeaderComponent {
       url.startsWith('/signup') ||
       url.startsWith('/onboarding');
 
-    this.isUserHomeRoute = url.startsWith('/home-user');
+    // 👇 aquí tratamos estas rutas como "modo usuario"
+    this.isUserHomeRoute =
+      url.startsWith('/home-user') ||
+      url.startsWith('/book') ||
+      url.startsWith('/reader') ||
+      url.startsWith('/favorites');
 
-    // para agrandar el logo en ambos homes
-    this.isHomeRoute = url.startsWith('/home') || url.startsWith('/home-user');
+    // solo los dos homes para el logo grande
+    this.isHomeRoute =
+  url.startsWith('/home') ||
+  url.startsWith('/home-user') ||
+  url.startsWith('/book');   // 👈 aquí agregas la vista del libro
 
-    // perfil
+    // perfil sin header global
     this.isProfileRoute = url.startsWith('/profile');
   }
 

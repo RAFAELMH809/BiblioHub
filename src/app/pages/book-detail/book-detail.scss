@@ -1,0 +1,234 @@
+/* ================= FONDO GENERAL ================= */
+.book-detail {
+  min-height: calc(100vh - 120px); // espacio para header + footer
+  background: linear-gradient(180deg, #004c99 0%, #007fb3 40%, #00a6a3 100%);
+  padding: 30px 40px 60px;
+  box-sizing: border-box;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+  position: relative;
+}
+
+/* ================= FLECHA REGRESAR ================= */
+.book-detail__back {
+  position: absolute;
+  left: 120px;
+  top: 90px; // debajo del header
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ================= CONTENEDOR CENTRAL ================= */
+.book-detail__container {
+  max-width: 1200px;
+  margin: 20px auto 0; // altura general del contenido
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 48px;
+  align-items: flex-start; // título/desc arriba
+  min-height: 480px;
+}
+
+/* ===================================================== */
+/*                     COLUMNA IZQUIERDA                 */
+/* ===================================================== */
+
+.book-detail__left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px; // separación entre portada y botones
+}
+
+/* ------- Portada (TAMAÑO de la imagen) ------- */
+.book-detail__cover-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* AQUÍ cambias SOLO el tamaño del libro */
+.book-detail__cover {
+  display: block;
+  width: 280px; // ⇐ aumenta este valor para hacerla más grande
+  height: auto;
+}
+
+/* ------- Corazón pegado al libro ------- */
+.book-detail__fav-cover {
+  position: absolute;
+  right: -48px; // ⇐ mueve horizontal
+  top: -16px;   // ⇐ mueve vertical
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  img {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ------- Botones debajo del libro ------- */
+/* AQUÍ controlas la posición general de los botones */
+.book-detail__actions {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; // separación ENTRE botones
+  /* si los quieres más abajo, agrega por ejemplo:
+     margin-top: 10px; */
+}
+
+/* ================= BOTONES GENERALES ================= */
+/* Forma, tamaño y contenido de los botones */
+.btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px; // ⇐ cambia alto del botón
+  font-size: 15px;    // ⇐ tamaño del texto del botón
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* texto a la izq, icono a la der */
+}
+
+/* Texto centrado dentro del botón */
+.btn__label {
+  flex: 1;
+  text-align: center;
+}
+
+/* Tamaño de los íconos de los botones */
+.btn img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Hover visual */
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Colores específicos */
+.btn--download {
+  background-color: #1bbf6b;
+  color: #ffffff;
+}
+
+.btn--read {
+  background-color: #ffffff;
+  color: #004c99;
+}
+
+/* ===================================================== */
+/*                     COLUMNA DERECHA                   */
+/* ===================================================== */
+
+.book-detail__right {
+  color: #ffffff;
+  max-width: 720px;
+}
+
+/* Título */
+.book-detail__title {
+  margin: 0 0 4px;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+}
+
+/* Autor */
+.book-detail__author {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Caja de descripción */
+.book-detail__description-box {
+  background: rgba(0, 180, 230, 0.35);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+}
+
+/* Texto de la descripción */
+.book-detail__description {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+/* ===================================================== */
+/*                        MÉTRICAS                       */
+/* ===================================================== */
+
+.book-detail__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-top: 8px;
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat img {
+  width: 52px;
+  height: 52px;
+}
+
+.stat__value {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.stat__label {
+  font-size: 13px;
+}
+
+/* ===================================================== */
+/*                         RESPONSIVO                    */
+/* ===================================================== */
+
+@media (max-width: 900px) {
+  .book-detail {
+    padding: 24px 16px 40px;
+  }
+
+  .book-detail__back {
+    left: 16px;
+    top: 90px;
+  }
+
+  .book-detail__container {
+    grid-template-columns: 1fr;
+    margin-top: 60px;
+    align-items: flex-start;
+  }
+
+  .book-detail__left {
+    align-items: flex-start;
+  }
+
+  .book-detail__actions {
+    max-width: 220px;
+  }
+}

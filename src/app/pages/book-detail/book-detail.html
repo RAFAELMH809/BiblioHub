@@ -1,18 +1,96 @@
-<section class="container">
-  <div style="display:grid; grid-template-columns:300px 1fr; gap:24px;">
-    <img src="/assets/covers/ej1.jpg" class="card" style="width:100%"/>
-    <div>
-      <h2 style="margin:0 0 8px 0">CIENCIA DE DATOS</h2>
-      <p style="opacity:.7">de JOHN D. KELLEHER, Brendan Tierney</p>
-      <p>El crecimiento en el uso de la ciencia de datos…</p>
-      <div class="stack" style="max-width:320px;">
-        <button class="btn">Descargar</button>
-        <button class="btn" routerLink="/reader/1">Leer libro</button>
+<section class="book-detail" *ngIf="book as b">
+  <!-- Flecha regresar -->
+  <button
+    type="button"
+    class="book-detail__back"
+    (click)="goBack()"
+    aria-label="Volver"
+  >
+    <img src="assets/reading/flechaizq.png" alt="Volver" />
+  </button>
+
+  <div class="book-detail__container">
+    <!-- ================= COLUMNA IZQUIERDA ================= -->
+    <div class="book-detail__left">
+      <!-- Portada + corazón -->
+      <div class="book-detail__cover-wrap">
+        <img
+          [src]="b.cover"
+          [alt]="b.title"
+          class="book-detail__cover"
+        />
+
+        <button
+          type="button"
+          class="book-detail__fav-cover"
+          aria-label="Agregar a favoritos"
+        >
+          <img src="assets/reading/corazon.png" alt="Favoritos" />
+        </button>
       </div>
-      <div style="display:flex; gap:24px; margin-top:16px; align-items:center;">
-        <div>📄 <strong>118</strong> Páginas</div>
-        <div>⏱️ <strong>1-2</strong> Horas de lectura</div>
-        <div>🔡 <strong>29 mil</strong> Palabras</div>
+
+      <!-- Botones debajo del libro -->
+      <div class="book-detail__actions">
+        <button
+          type="button"
+          class="btn btn--download"
+          (click)="descargar()"
+        >
+          <span class="btn__label">Descargar</span>
+          <img src="assets/reading/download.png" alt="" />
+        </button>
+
+        <button
+          type="button"
+          class="btn btn--read"
+          (click)="leerLibro()"
+        >
+          <span class="btn__label">Leer libro</span>
+          <img src="assets/reading/leer.png" alt="" />
+        </button>
+      </div>
+    </div>
+
+    <!-- ================= COLUMNA DERECHA ================= -->
+    <div class="book-detail__right">
+      <h1 class="book-detail__title">
+        {{ b.title | uppercase }}
+      </h1>
+
+      <h2 class="book-detail__author">
+        {{ b.author }}
+      </h2>
+
+      <div class="book-detail__description-box">
+        <p class="book-detail__description">
+          {{ b.description }}
+        </p>
+      </div>
+
+      <div class="book-detail__stats">
+        <div class="stat">
+          <img src="assets/reading/pages.png" alt="Páginas" />
+          <div>
+            <div class="stat__value">{{ b.pages }}</div>
+            <div class="stat__label">Páginas</div>
+          </div>
+        </div>
+
+        <div class="stat">
+          <img src="assets/reading/hours.png" alt="Horas de lectura" />
+          <div>
+            <div class="stat__value">{{ b.hours }}</div>
+            <div class="stat__label">Horas de lectura</div>
+          </div>
+        </div>
+
+        <div class="stat">
+          <img src="assets/reading/words.png" alt="Palabras" />
+          <div>
+            <div class="stat__value">{{ b.words }}</div>
+            <div class="stat__label">Palabras</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -1,0 +1,291 @@
+/* ===================================================== */
+/*  FONDO GENERAL                                        */
+/* ===================================================== */
+
+.fav {
+  padding: 16px 48px 40px;
+  color: #fff;
+  background: linear-gradient(180deg, #003da5 0%, #009fa6 100%);
+  min-height: calc(100vh - 120px);
+  box-sizing: border-box;
+
+  /* 🔹 Hacemos que todo sea un layout en columna:
+     header arriba, contenido al centro, paginación al fondo */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===================================================== */
+/*  HEADER (flecha + título favoritos)                   */
+/* ===================================================== */
+
+.fav__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;            /* ⬅️ espacio flecha-título */
+  margin-bottom: 18px;
+}
+
+.fav__back {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  /* ⬇️ mueve la flecha respecto al borde izquierdo */
+  margin-left: 0;       /* súbelo a 20px si la quieres más centrada */
+
+  img {
+    width: 32px;        /* ⬅️ tamaño de la flecha */
+    height: 32px;
+  }
+}
+
+.fav__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;            /* ⬅️ espacio corazón-texto */
+}
+
+.fav__title-heart {
+  width: 38px;          /* ⬅️ tamaño icono corazón del título */
+  height: 38px;
+}
+
+.fav__title {
+  margin: 0;
+  font-size: 36px;      /* ⬅️ tamaño de “Favoritos” */
+  font-weight: 800;
+}
+
+/* ===================================================== */
+/*  LISTA (tarjetas + paginación)                        */
+/* ===================================================== */
+
+.fav__list {
+  /* Ocupa todo el espacio disponible después del header */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Solo el grupo de tarjetas */
+.fav__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;            /* ⬅️ distancia vertical entre tarjetas */
+}
+
+/* ===================================================== */
+/*  CARD PRINCIPAL                                       */
+/* ===================================================== */
+
+.fav__card {
+  display: grid;
+
+  /* 🔹 CONTROL DE ANCHOS DE LAS COLUMNAS
+     1) Columna portada/corazón
+     2) Columna separador
+     3) Columna texto
+     4) Columna botones
+  */
+  grid-template-columns: 200px 20px 1fr 190px;
+
+  align-items: stretch;
+  gap: 12px;            /* ⬅️ espacio horizontal entre columnas */
+
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 18px;   /* ⬅️ padding interno tarjeta */
+  color: #000;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================================== */
+/*  COLUMNA IZQUIERDA (corazón + portada)                */
+/* ===================================================== */
+
+.fav__card-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* ⬅️ centra todo horizontalmente */
+  gap: 8px;             /* ⬅️ espacio entre corazón y portada */
+
+  /* Mueve el bloque completo dentro de la tarjeta */
+  padding-top: 8px;     /* ⬅️ más grande = más abajo */
+  padding-left: 0;      /* ⬅️ muévelo hacia la derecha */
+}
+
+/* Botón del corazón */
+.fav__card-heart {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+
+  /* Mueve SOLO el corazón respecto a la portada */
+  margin-top: 0;
+  margin-left: -180px;
+
+  img {
+    width: 28px;        /* ⬅️ tamaño del corazón de cada card */
+    height: 28px;
+  }
+}
+
+/* corazón activo un poco “brillante” */
+.fav__card-heart--active img {
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.4));
+}
+
+/* Portada del libro */
+.fav__card-cover {
+  max-width: 170px;     /* ⬅️ ancho de portada */
+  height: auto;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+
+  /* puedes usar margin-top/margin-left si quieres mover solo la portada */
+}
+
+/* ===================================================== */
+/*  SEPARADOR VERTICAL                                   */
+/* ===================================================== */
+
+.fav__card-separator {
+  height: 90%;          /* ⬅️ alto del separador dentro de la card */
+  width: auto;
+  align-self: center;   /* ⬅️ posición vertical (center, flex-start, etc.) */
+
+  /* si quieres jugar un poco: */
+  margin-left: 1420px;       /* ⬅️ mueve el separador hacia izquierda/derecha */
+}
+
+/* ===================================================== */
+/*  COLUMNA CENTRAL (texto del libro)                    */
+/* ===================================================== */
+
+/* columna central (texto del libro) */
+.fav__card-middle {
+  display: flex;
+  flex-direction: column;
+  /* ⬅️ SEPARACIÓN ENTRE TÍTULO, AUTOR Y DESCRIPCIÓN */
+  gap: 6px;          /* súbelo para separarlos más, bájalo para pegarlos */
+}
+
+.fav__card-title {
+  margin: 0;
+  font-size: 20px;   /* ⬅️ TAMAÑO DEL TÍTULO */
+  font-weight: 800;
+}
+
+.fav__card-author {
+  margin: 0;
+  font-size: 14px;   /* ⬅️ TAMAÑO DEL AUTOR */
+  font-weight: 600;
+}
+
+.fav__card-text {
+  margin: 6px 0 0;   /* ⬅️ separación entre autor y descripción */
+  font-size: 19px;   /* ⬅️ TAMAÑO DEL TEXTO */
+  line-height: 1.5;  /* ⬅️ espaciado entre líneas de la descripción */
+  max-width: 1200px;  /* opcional, para limitar el ancho del texto */
+}
+
+
+/* ===================================================== */
+/*  COLUMNA DERECHA (botones)                            */
+/* ===================================================== */
+
+.fav__card-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* centro vertical */
+  align-items: flex-start;  /* 🔹 alinea los botones a la IZQUIERDA */
+  gap: 40px; /* separar botones entre ellos */
+}
+
+
+/* estilo general de los botones */
+.fav__btn {
+  border-radius: 999px;
+  border: 0;
+  padding: 15px 48px; /* ⬅️ alto/ancho del botón */
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;          /* ⬅️ espacio entre texto e ícono */
+  font-size: 17px;    /* ⬅️ tamaño del texto del botón */
+  margin-left: -90px;   /* valor base */
+
+  img {
+    width: 27px;      /* ⬅️ tamaño del ícono */
+    height: 27px;
+  }
+}
+
+.fav__btn--download {
+  background: #1bbf6b;
+  color: #fff;
+}
+
+.fav__btn--read {
+  background: #C7C3C3;
+  color: #004c99;
+  
+}
+
+
+/* ===================================================== */
+/*  PAGINACIÓN                                           */
+/* ===================================================== */
+
+.fav__pagination {
+  /* 🔹 clave para que se quede SIEMPRE abajo:
+     margin-top: auto empuja la paginación al final del contenedor flex */
+  margin-top: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;             /* ⬅️ espacio entre botones de página */
+  padding-top: 56px;    /* ⬅️ distancia de las tarjetas a la paginación */
+  padding-bottom: 8px;  /* ⬅️ espacio antes del footer global */
+}
+
+.fav__page-btn {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 40px;    /* ⬅️ tamaño de los botones de página */
+  min-width: 32px;
+  text-align: center;
+  cursor: pointer;
+  background: #ffffff;
+  color: #004c99;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.fav__page-btn--nav {
+  background: #004c99;
+  color: #ffffff;
+}
+
+.fav__page-btn--active {
+  background: #00b0b8;
+  color: #ffffff;
+}
+
+.fav__page-ellipsis {
+  padding: 0 4px;
+  font-weight: 700;
+}
+
+/* ===================================================== */
+/*  MENSAJE CUANDO NO HAY FAVORITOS                      */
+/* ===================================================== */
+
+.fav__empty {
+  margin-top: 40px;
+  font-weight: 600;
+}

@@ -55,32 +55,52 @@
     </button>
   </div>
 
-  <!-- ===== Barra AZUL de búsqueda ===== -->
   <nav class="catbar fullbleed" *ngIf="!isAuthRoute">
-    <div class="catbar__row">
-      <select class="catbar__select">
-        <option value="" disabled selected>Categorías</option>
-        <option>Ingeniería</option>
-        <option>Salud</option>
-        <option>Educación</option>
-        <option>Cultura</option>
-        <option>Religión</option>
-        <option>Gastronomía</option>
-        <option>Historia</option>
-        <option>Tecnologías</option>
-        <option>Negocios</option>
-        <option>Ciencias</option>
-        <option>Matemáticas</option>
-        <option>Arte</option>
-      </select>
+  <div class="catbar__row">
+    <!-- Categorías -->
+    <select
+      #catSelect
+      class="catbar__select"
+    >
+      <option value="" selected>Categorías</option>
+      <option value="Ingeniería">Ingeniería</option>
+      <option value="Salud">Salud</option>
+      <option value="Educación">Educación</option>
+      <option value="Cultura">Cultura</option>
+      <option value="Religión">Religión</option>
+      <option value="Gastronomía">Gastronomía</option>
+      <option value="Historia">Historia</option>
+      <option value="Tecnologías">Tecnologías</option>
+      <option value="Negocios">Negocios</option>
+      <option value="Ciencias">Ciencias</option>
+      <option value="Matemáticas">Matemáticas</option>
+      <option value="Arte">Arte</option>
+    </select>
 
-      <input class="catbar__input" type="text" placeholder="Libros/Título" />
-      <input class="catbar__input" type="text" placeholder="Autor(es)" />
+    <!-- Título -->
+    <input
+      #titleInput
+      class="catbar__input"
+      type="text"
+      placeholder="Libros/Título"
+    />
 
-      <button class="catbar__search-btn" type="button">
-        <img src="assets/icons/search.png" alt="" />
-        <span>Buscar</span>
-      </button>
-    </div>
-  </nav>
-</header>
+    <!-- Autor -->
+    <input
+      #authorInput
+      class="catbar__input"
+      type="text"
+      placeholder="Autor(es)"
+    />
+
+    <!-- Botón Buscar -->
+    <button
+      class="catbar__search-btn"
+      type="button"
+      (click)="onSearchClick(catSelect.value, titleInput.value, authorInput.value)"
+    >
+      <img src="assets/icons/search.png" alt="" />
+      <span>Buscar</span>
+    </button>
+  </div>
+</nav>

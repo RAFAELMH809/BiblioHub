@@ -1,0 +1,112 @@
+<section class="fav">
+  <!-- Encabezado -->
+  <header class="fav__header">
+    <button
+      type="button"
+      class="fav__back"
+      aria-label="Volver"
+      (click)="goBack()"
+    >
+      <img src="assets/reading/flechaizq.png" alt="Volver" />
+    </button>
+
+    <div class="fav__title-wrap">
+      <!-- si quieres, aquí puedes poner también un icono -->
+      <h1 class="fav__title">Resultados</h1>
+    </div>
+  </header>
+
+  <!-- Contenido: tarjetas + paginación -->
+  <main class="fav__list" *ngIf="books.length; else noResults">
+    <!-- CONTENEDOR SOLO DE TARJETAS -->
+    <div class="fav__cards">
+      <article
+        class="fav__card"
+        *ngFor="let book of books"
+      >
+        <!-- columna izquierda: corazón + portada -->
+        <div class="fav__card-left">
+          <button
+            type="button"
+            class="fav__card-heart"
+            [class.fav__card-heart--active]="isFavorite(book.id)"
+            (click)="toggleFavorite(book.id)"
+            aria-label="Agregar/Quitar de favoritos"
+          >
+            <img
+              [src]="
+                isFavorite(book.id)
+                  ? 'assets/reading/corazonazul.png'
+                  : 'assets/reading/corazonlleno.png'
+              "
+              alt="Favorito"
+            />
+          </button>
+
+          <img
+            [src]="book.cover"
+            [alt]="book.title"
+            class="fav__card-cover"
+          />
+        </div>
+
+        <!-- separador -->
+        <img
+          src="assets/reading/separador.png"
+          alt=""
+          class="fav__card-separator"
+        />
+
+        <!-- columna central: texto -->
+        <div class="fav__card-middle">
+          <h2 class="fav__card-title">{{ book.title }}</h2>
+          <p class="fav__card-author">{{ book.author }}</p>
+          <p class="fav__card-text">
+            {{ book.shortDescription }}
+          </p>
+        </div>
+
+        <!-- columna derecha: botones -->
+        <div class="fav__card-right">
+          <button
+            type="button"
+            class="fav__btn fav__btn--download"
+            (click)="descargar(book)"
+          >
+            <span>Descargar</span>
+            <img src="assets/reading/download.png" alt="" />
+          </button>
+
+          <button
+            type="button"
+            class="fav__btn fav__btn--read"
+            (click)="leerLibro(book)"
+          >
+            <span>Leer libro</span>
+            <img src="assets/reading/leer.png" alt="" />
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <!-- paginación (visual, estilo mockup) -->
+    <footer class="fav__pagination">
+      <button class="fav__page-btn fav__page-btn--nav">«</button>
+      <button class="fav__page-btn fav__page-btn--active">1</button>
+      <button class="fav__page-btn">2</button>
+      <button class="fav__page-btn">3</button>
+      <span class="fav__page-ellipsis">…</span>
+      <button class="fav__page-btn">67</button>
+      <button class="fav__page-btn">68</button>
+      <button class="fav__page-btn">99</button>
+      <button class="fav__page-btn fav__page-btn--nav">»</button>
+    </footer>
+  </main>
+
+  <!-- cuando no haya resultados -->
+  <ng-template #noResults>
+    <p class="fav__empty">
+      No se encontraron resultados para tu búsqueda.
+    </p>
+  </ng-template>
+</section>

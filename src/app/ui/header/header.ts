@@ -1,8 +1,8 @@
-// src/app/layout/header/header.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { SearchService } from '../../core/services/search.service';
 
 @Component({
   selector: 'app-header',
@@ -12,24 +12,18 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
-  // login / signup / onboarding
   isAuthRoute = false;
-
-  // home público o home de usuario (para agrandar logo)
   isHomeRoute = false;
-
-  // rutas en contexto de usuario (home-user, books, reader, favorites...)
   isUserHomeRoute = false;
-
-  // rutas donde NO queremos header global (perfil, reader)
   isProfileRoute = false;
-
-  // SOLO favoritos
   isFavoritesRoute = false;
 
   currentUrl = '';
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private searchService: SearchService
+  ) {
     this.updateFlags(this.router.url);
 
     this.router.events
@@ -40,37 +34,56 @@ export class HeaderComponent {
   private updateFlags(url: string) {
     this.currentUrl = url;
 
-    // rutas de autenticación
     this.isAuthRoute =
       url.startsWith('/login') ||
       url.startsWith('/auth') ||
       url.startsWith('/signup') ||
+      url.startsWith('/onboarding-info') ||
       url.startsWith('/onboarding');
 
-    // modo usuario (home de usuario, detalle, reader, favoritos)
     this.isUserHomeRoute =
       url.startsWith('/home-user') ||
       url.startsWith('/book') ||
       url.startsWith('/reader') ||
-      url.startsWith('/favorites');
+      url.startsWith('/favorites') ||
+      url.startsWith('/results');
 
-    // logo grande en home, home-user y detalle de libro
     this.isHomeRoute =
       url.startsWith('/home') ||
       url.startsWith('/home-user') ||
-      url.startsWith('/book');
+      url.startsWith('/book') ||
+      url.startsWith('/results');
 
-    // aquí ocultamos header en perfil Y en reader
     this.isProfileRoute =
       url.startsWith('/profile') ||
       url.startsWith('/reader');
 
-    // bandera SOLO para /favorites
     this.isFavoritesRoute = url.startsWith('/favorites');
   }
 
   onAuthLogoClick() {
     if (this.currentUrl.startsWith('/onboarding')) return;
     this.router.navigateByUrl('/home');
+  }
+
+  /** Buscar SOLO al darle click */
+  onSearchClick(category: string, title: string, author: string) {
+    const cat = (category ?? '').trim();
+    const t = (title ?? '').trim();
+    const a = (author ?? '').trim();
+
+    // nada escrito → NO navega, no hace nada
+    if (!cat && !t && !a) {
+      return;
+    }
+
+    // ejecuta búsqueda (esto actualiza el servicio + results$)
+    this.searchService.search(cat, t, a);
+
+    // si ya estás en /results, no pasa nada,
+    // sólo se actualizarán las cards.
+    if (!this.currentUrl.startsWith('/results')) {
+      this.router.navigateByUrl('/results');
+    }
   }
 }

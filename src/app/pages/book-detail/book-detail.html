@@ -23,9 +23,18 @@
         <button
           type="button"
           class="book-detail__fav-cover"
+          [class.book-detail__fav-cover--active]="isFavorite"
           aria-label="Agregar a favoritos"
+          (click)="toggleFavorite()"
         >
-          <img src="assets/reading/corazon.png" alt="Favoritos" />
+          <img
+            [src]="
+              isFavorite
+                ? 'assets/reading/corazonlleno.png'
+                : 'assets/reading/corazon.png'
+            "
+            alt="Favoritos"
+          />
         </button>
       </div>
 

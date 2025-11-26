@@ -74,23 +74,26 @@
   img {
     width: 42px;
     height: 42px;
+    transition: transform 0.15s ease, filter 0.15s ease;
   }
 }
 
+/* estado activo del corazón (relleno / seleccionado) */
+.book-detail__fav-cover--active img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9));
+}
+
 /* ------- Botones debajo del libro ------- */
-/* AQUÍ controlas la posición general de los botones */
 .book-detail__actions {
   width: 100%;
   max-width: 260px;
   display: flex;
   flex-direction: column;
   gap: 24px; // separación ENTRE botones
-  /* si los quieres más abajo, agrega por ejemplo:
-     margin-top: 10px; */
 }
 
 /* ================= BOTONES GENERALES ================= */
-/* Forma, tamaño y contenido de los botones */
 .btn {
   width: 100%;
   border: none;
@@ -105,32 +108,28 @@
   justify-content: space-between; /* texto a la izq, icono a la der */
 }
 
-/* Texto centrado dentro del botón */
 .btn__label {
   flex: 1;
   text-align: center;
 }
 
-/* Tamaño de los íconos de los botones */
 .btn img {
   width: 20px;
   height: 20px;
 }
 
-/* Hover visual */
 .btn:hover {
   transform: translateY(-1px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Colores específicos */
 .btn--download {
   background-color: #1bbf6b;
   color: #ffffff;
 }
 
 .btn--read {
-  background-color: #ffffff;
+  background-color: #C7C3C3;
   color: #004c99;
 }
 
@@ -231,4 +230,26 @@
   .book-detail__actions {
     max-width: 220px;
   }
+}
+
+/* ------- Corazón pegado al libro ------- */
+.book-detail__fav-cover {
+  position: absolute;
+  right: -48px;
+  top: -16px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  img {
+    width: 42px;
+    height: 42px;
+    display: block;
+  }
+}
+
+/* cuando está activo puedes darle un pequeño glow si quieres */
+.book-detail__fav-cover--active img {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
 }

@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FavoritesService } from '../../core/services/favorites.service';
 
 type BookDetail = {
   id: string;
@@ -14,7 +15,6 @@ type BookDetail = {
   pdf: string;     // ruta al PDF en assets
 };
 
-// 👇 Aquí defines tus libros. Ajusta títulos, autores, descripciones e imágenes.
 const BOOKS: BookDetail[] = [
   {
     id: 'ingenieria-soft',
@@ -66,15 +66,19 @@ export class BookDetailComponent {
   private router = inject(Router);
 
   book: BookDetail | null = null;
+  isFavorite = false;
 
-  constructor() {
+  // si quieres, aquí podrías leer si hay usuario logueado desde localStorage
+  isLoggedIn = true;
+
+  constructor(private favorites: FavoritesService) {
     const id = this.route.snapshot.paramMap.get('id');
     const found = BOOKS.find((b) => b.id === id);
     if (!found) {
-      // si no existe el libro, regresa al home del usuario
       this.router.navigateByUrl('/home-user');
     } else {
       this.book = found;
+      this.isFavorite = this.favorites.isFavorite(found.id);
     }
   }
 
@@ -90,13 +94,20 @@ export class BookDetailComponent {
   descargar() {
     if (!this.book?.pdf) return;
 
-    // Creamos un enlace "fantasma" para disparar la descarga del PDF
     const link = document.createElement('a');
     link.href = this.book.pdf;
     link.download = `${this.book.title}.pdf`;
-    link.target = '_blank'; // abre en otra pestaña si el navegador lo prefiere
+    link.target = '_blank';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  toggleFavorite() {
+    if (!this.book) return;
+    if (!this.isLoggedIn) return; // aquí pondrías tu validación real de login
+
+    this.favorites.toggle(this.book.id);
+    this.isFavorite = this.favorites.isFavorite(this.book.id);
   }
 }

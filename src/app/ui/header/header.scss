@@ -60,6 +60,17 @@
   cursor: pointer;
 }
 
+/* ===== SOLO PANTALLA DE FAVORITOS ===== */
+.topbar--favorites .brand-wrap img {
+  height: 40px;        /* ⬅️ tamaño del logo en FAVORITOS */
+  transform: scale(5.8);        /* prueba 1.2, 1.3, 1.5… */
+
+}
+
+.topbar--favorites .brand-wrap {
+  margin-left: -390px;  /* ⬅️ más negativo = más a la izquierda */
+}
+
 /* ========= ACCIONES DERECHA ========= */
 
 .auth-actions,

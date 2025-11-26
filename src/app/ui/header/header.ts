@@ -1,4 +1,4 @@
-// src/app/layout/header/header.ts (o donde lo tengas)
+// src/app/layout/header/header.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
@@ -24,6 +24,9 @@ export class HeaderComponent {
   // rutas donde NO queremos header global (perfil, reader)
   isProfileRoute = false;
 
+  // SOLO favoritos
+  isFavoritesRoute = false;
+
   currentUrl = '';
 
   constructor(private router: Router) {
@@ -37,20 +40,21 @@ export class HeaderComponent {
   private updateFlags(url: string) {
     this.currentUrl = url;
 
+    // rutas de autenticación
     this.isAuthRoute =
       url.startsWith('/login') ||
       url.startsWith('/auth') ||
       url.startsWith('/signup') ||
       url.startsWith('/onboarding');
 
-    // modo usuario (aunque en /reader no se verá el header)
+    // modo usuario (home de usuario, detalle, reader, favoritos)
     this.isUserHomeRoute =
       url.startsWith('/home-user') ||
       url.startsWith('/book') ||
       url.startsWith('/reader') ||
       url.startsWith('/favorites');
 
-    // logo grande solo en home y home-user
+    // logo grande en home, home-user y detalle de libro
     this.isHomeRoute =
       url.startsWith('/home') ||
       url.startsWith('/home-user') ||
@@ -60,6 +64,9 @@ export class HeaderComponent {
     this.isProfileRoute =
       url.startsWith('/profile') ||
       url.startsWith('/reader');
+
+    // bandera SOLO para /favorites
+    this.isFavoritesRoute = url.startsWith('/favorites');
   }
 
   onAuthLogoClick() {

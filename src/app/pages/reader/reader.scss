@@ -1,0 +1,241 @@
+/* src/app/pages/reader/reader.scss */
+
+/* ===== LAYOUT GENERAL ===== */
+.reader {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+/* ===== BARRA GRIS SUPERIOR ===== */
+.reader__top-gray {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #d0d0d0;
+  height: 72px;          /* ALTURA barra gris */
+  padding: 0 24px;
+}
+
+/* Botón con el logo (clic → home-user) */
+.reader__logo {
+  position: absolute;
+  left: -47px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    height: 278px;       /* TAMAÑO DEL LOGO en el reader */
+    display: block;
+  }
+}
+
+.reader__heading {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Botón avatar (clic → profile) */
+.reader__avatar {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    width: 50px;         /* TAMAÑO DEL AVATAR */
+    height: 50px;
+    border-radius: 50%;
+  }
+}
+
+/* ===== BARRA AZUL SUPERIOR ===== */
+.reader__top-blue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0073c6;
+  color: #fff;
+  height: 56px;          /* ALTURA barra azul superior */
+  padding: 0 24px;
+  position: relative;
+}
+
+/* Botón X (izquierda) */
+.reader__close {
+  position: absolute;
+  left: 24px;            /* muévelo más a la izquierda/derecha */
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+
+  img {
+    height: 28px;        /* tamaño de la X */
+  }
+}
+
+/* TÍTULO (Ciencia de Datos / Software / Patrones) */
+.reader__book-title {
+  font-weight: 700;
+  font-size: 18px;       /* SUBE este valor para título más grande */
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+/* Contenedor de lupa + Aa (lado derecho) */
+.reader__top-blue-actions {
+  position: absolute;
+  right: 24px;           /* muévelo a la derecha/izquierda */
+  display: flex;
+  align-items: center;
+  gap: 16px;             /* separación entre lupa y Aa */
+}
+
+/* Estilo base de los botones de icono */
+.reader__icon-btn {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* 🔍 LUPA (independiente) */
+.reader__icon-btn--search img {
+  height: 35px;          /* tamaño de la lupa */
+  width: auto;
+}
+
+/* Aa (independiente) */
+.reader__icon-btn--aa img {
+  height: 45px;          /* tamaño del icono Aa */
+  width: auto;
+}
+
+/* ===== CONTENIDO CENTRAL (PÁGINAS) ===== */
+.reader__content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 16px 0;
+}
+
+/* Contenedor de la página */
+.reader__page-wrapper {
+  width: 100%;
+  max-width: 1600px;  /* ancho máximo del área de lectura */
+  padding: 0 40px;    /* margen lateral (quítalo o bájalo si quieres más ancho) */
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo base de cualquier imagen de página */
+.reader__page-image {
+  display: block;
+  width: 100%;        /* ocupa el ancho del wrapper */
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* --- PORTADA (página 1, todos los libros) --- */
+.reader__page-image--cover {
+  max-width: 900px;   /* ancho máximo de la portada */
+  max-height: 720px;  /* alto máximo de la portada */
+}
+
+/* --- PÁGINAS DE LECTURA (TAMAÑO BASE: CIENCIA DE DATOS) --- */
+.reader__page-image--content {
+  max-width: 1530px;  /* ancho máximo de las páginas de lectura */
+  max-height: 2720px; /* alto máximo de las páginas de lectura */
+}
+
+/* =============== AJUSTES POR LIBRO =============== */
+/* Ingeniería del Software (software1 / software2) */
+.reader__page-image--soft {
+  max-width: 1005px;  /* ajusta aquí solo para este libro */
+  max-height: 1000px;
+}
+
+/* Producción a los Patrones (patrones1 / patrones2) */
+.reader__page-image--patrones {
+  max-width: 1005px;  /* ajusta aquí solo para este libro */
+  max-height: 1000px;
+}
+
+/* ===== BARRA INFERIOR (SLIDER) ===== */
+.reader__bottom {
+  background: #0073c6;
+  color: #ffffff;
+  padding: 14px 40px 12px; /* ALTURA barra inferior (más padding = más alta) */
+}
+
+.reader__bottom-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reader__nav-left,
+.reader__nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+/* === SLIDER === */
+.reader__slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: #ffffff;
+  outline: none;
+}
+
+/* WebKit (Chrome, Edge, etc.) */
+.reader__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;           /* tamaño de la bolita */
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #005a9c;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Firefox */
+.reader__slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #005a9c;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.15);
+}
+
+.reader__page-label {
+  margin-top: 6px;
+  text-align: center;
+  font-weight: 600;
+}

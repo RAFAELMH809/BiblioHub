@@ -11,6 +11,7 @@ type BookDetail = {
   pages: number;
   hours: string;   // "1-2", "2-3", etc.
   words: string;   // "29 Mil", etc.
+  pdf: string;     // ruta al PDF en assets
 };
 
 // 👇 Aquí defines tus libros. Ajusta títulos, autores, descripciones e imágenes.
@@ -21,10 +22,11 @@ const BOOKS: BookDetail[] = [
     author: 'Ian Sommerville',
     cover: 'assets/home/categorias/fondos/software.png',
     description:
-      'Descripción del libro de Ingeniería del Software. Aquí puedes colocar el texto que tienes en tu mockup.',
+      'Ingeniería del Software de Ian Sommerville es un libro de referencia clásica en la disciplina, ampliamente utilizado en cursos universitarios y por profesionales del sector. Ofrece una visión completa del desarrollo de software, abarcando desde los fundamentos hasta temas avanzados como sistemas críticos, diseño arquitectónico, métodos ágiles, reutilización de software y evolución de sistemas.El libro está estructurado en seis partes principales: visión general, requerimientos, diseño, desarrollo, verificación y validación, y gestión del software. Cada capítulo incluye objetivos claros, puntos clave, lecturas recomendadas y ejercicios, lo que lo hace ideal tanto para el estudio como para la consulta profesional...',
     pages: 118,
     hours: '1-2',
     words: '29 Mil',
+    pdf: 'assets/read/software.pdf',
   },
   {
     id: 'ciencia-datos',
@@ -36,17 +38,19 @@ const BOOKS: BookDetail[] = [
     pages: 118,
     hours: '1-2',
     words: '29 Mil',
+    pdf: 'assets/read/cienciadedatos.pdf',
   },
   {
     id: 'produccion-patrones',
     title: 'Producción a los Patrones',
-    author: 'Autor del libro',
+    author: 'Oscar Javier Blancarte Iturralde',
     cover: 'assets/home/categorias/fondos/patrones.png',
     description:
-      'Descripción del libro Producción a los Patrones. Ajusta este texto al de tu maqueta.',
+      'Este libro aborda cómo describir y comunicar la arquitectura de software de forma ágil, enfocándose en lo que realmente ayuda al equipo a construir y mantener sistemas complejos. Explica por qué la documentación tradicional suele fallar (es pesada, se queda obsoleta, nadie la lee) y propone en su lugar una forma de documentar ligera, visual y práctica, basada en diagramas claros, decisiones arquitectónicas bien justificadas y herramientas que permiten manejar la documentación como si fuera código Además, presenta técnicas y ejemplos para integrar la documentación en el flujo de trabajo ágil, sin frenar el desarrollo. Muestra cómo la documentación puede servir como guía para la toma de decisiones técnicas.....',
     pages: 200,
     hours: '2-3',
     words: '40 Mil',
+    pdf: 'assets/read/patrones.pdf',
   },
 ];
 
@@ -84,8 +88,15 @@ export class BookDetailComponent {
   }
 
   descargar() {
-    // Aquí podrías enlazar a un PDF u otra acción
-    // Por ahora solo un console.log
-    console.log('Descargar libro:', this.book?.title);
+    if (!this.book?.pdf) return;
+
+    // Creamos un enlace "fantasma" para disparar la descarga del PDF
+    const link = document.createElement('a');
+    link.href = this.book.pdf;
+    link.download = `${this.book.title}.pdf`;
+    link.target = '_blank'; // abre en otra pestaña si el navegador lo prefiere
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }

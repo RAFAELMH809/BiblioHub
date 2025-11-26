@@ -1,5 +1,102 @@
-<header style="background:#6b7280; color:#fff; padding:8px 12px; display:flex; gap:12px; align-items:center;">
-  <button class="btn" style="background:transparent; border:1px solid #fff">✖</button>
-  <strong>Leer libro…</strong><span style="margin-left:auto">🔍 Aa ☰</span>
-</header>
-<iframe src="/assets/pdf/sample.pdf#view=fitH" style="border:0; width:100%; height:80dvh"></iframe>
+<!-- src/app/pages/reader/reader.html -->
+<section class="reader" *ngIf="book as b">
+  <!-- BARRA GRIS SUPERIOR PROPIA DEL READER -->
+  <header class="reader__top-gray">
+    <button
+      type="button"
+      class="reader__logo"
+      aria-label="Ir al inicio de usuario"
+      (click)="goHomeUser()"
+    >
+      <img src="assets/brand/logo-full.png" alt="BiblioHub" />
+    </button>
+
+    <h1 class="reader__heading">Leer libro...</h1>
+
+    <button
+      class="reader__avatar"
+      type="button"
+      aria-label="Ir a mi perfil"
+      (click)="goProfile()"
+    >
+      <img src="assets/icons/avatar.png" alt="Perfil" />
+    </button>
+  </header>
+
+  <!-- BARRA AZUL CON TÍTULO DEL LIBRO Y ACCIONES -->
+  <div class="reader__top-blue">
+    <button
+      class="reader__close"
+      type="button"
+      aria-label="Cerrar"
+      (click)="close()"
+    >
+      <img src="assets/read/equis.png" alt="Cerrar" />
+    </button>
+
+    <div class="reader__book-title">
+      ({{ b.title }})
+    </div>
+
+    <div class="reader__top-blue-actions">
+      <button
+        type="button"
+        class="reader__icon-btn reader__icon-btn--search"
+        aria-label="Buscar en el libro"
+      >
+        <img src="assets/read/lup.png" alt="Buscar" />
+      </button>
+
+      <button
+        type="button"
+        class="reader__icon-btn reader__icon-btn--aa"
+        aria-label="Tamaño de letra"
+      >
+        <img src="assets/read/aa.png" alt="Tamaño de letra" />
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTENIDO CENTRAL (PÁGINA) -->
+  <main class="reader__content">
+    <div class="reader__page-wrapper">
+      <img
+        [src]="currentImage"
+        [alt]="b.title + ' - página ' + currentPage"
+        [ngClass]="{
+          'reader__page-image': true,
+          'reader__page-image--cover': currentPage === 1,
+          'reader__page-image--content': currentPage > 1,
+          'reader__page-image--soft': b.id === 'ingenieria-soft' && currentPage > 1,
+          'reader__page-image--patrones': b.id === 'produccion-patrones' && currentPage > 1
+        }"
+      />
+    </div>
+  </main>
+
+  <!-- BARRA INFERIOR (SLIDER DE PÁGINAS) -->
+  <footer class="reader__bottom">
+    <div class="reader__bottom-inner">
+      <div class="reader__nav-left">
+        <span class="reader__icon-bars">||</span>
+      </div>
+
+      <input
+        type="range"
+        class="reader__slider"
+        [min]="1"
+        [max]="b.pages"
+        [value]="currentPage"
+        (input)="onSliderChange($any($event.target).value)"
+      />
+
+      <div class="reader__nav-right">
+        <span class="reader__icon-arrows">&raquo;</span>
+      </div>
+    </div>
+
+    <div class="reader__page-label">
+      {{ currentPage }}&nbsp; de &nbsp;{{ b.pages }}
+    </div>
+  </footer>
+</section>

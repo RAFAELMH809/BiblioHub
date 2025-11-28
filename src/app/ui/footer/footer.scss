@@ -1,1 +1,119 @@
-.footer{background:#0F2A44; color:#fff; padding:28px 24px}
+.footer {
+  background: #0f2a44;        /* azul oscuro */
+  color: #ffffff;
+  padding: 32px 60px;         /* margen interno general */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 15px;            /* texto base */
+}
+
+/* 🔹 ahora el contenedor usa TODO el ancho disponible */
+.footer__inner {
+  width: 100%;
+  margin: 0;
+
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: 410px;          /* separación entre columnas */
+  row-gap: 24px;
+}
+
+/* ===== COLUMNAS ===== */
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Columna de SÍGUENOS: más separación vertical entre filas */
+.footer__col--social {
+  gap: 16px;       /* súbelo a 18, 20, etc. si quieres aún más */
+}
+
+.footer__col--contact {
+  gap: 12px;
+}
+
+/* ===== TITULOS ===== */
+
+.footer__title {
+  margin: 0 0 12px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #00d3c8;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer__subtitle {
+  margin: 14px 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #00d3c8;
+  text-transform: uppercase;
+}
+
+/* ===== ITEMS ===== */
+
+.footer__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1.6;
+}
+
+.footer__item--social {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* bloque de políticas */
+.footer__block--policy {
+  margin-top: 8px;
+}
+
+/* ===== ICONOS ===== */
+
+.footer__icon {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+.footer__icon--social {
+  width: 24px;
+  height: 24px;
+}
+
+/* ===== LINKS ===== */
+
+.footer__link {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer__link:hover,
+.footer__item--social:hover span {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVO ===== */
+
+@media (max-width: 900px) {
+  .footer {
+    padding: 24px 24px;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    row-gap: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer__inner {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+}

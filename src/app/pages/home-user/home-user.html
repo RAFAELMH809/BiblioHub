@@ -1,10 +1,34 @@
 <!-- HERO FULL WIDTH -->
 <div class="fullbleed">
   <div class="hero">
-    <button class="hero__nav left" (click)="prevHero()">❮</button>
-    <img [src]="hero[heroIndex]" class="hero__img" alt="" />
-    <button class="hero__nav right" (click)="nextHero()">❯</button>
+    <!-- Flecha izquierda -->
+    <button class="hero__nav left" (click)="prevHero()">
+      ❮
+    </button>
 
+    <!-- PISTA que se mueve horizontalmente -->
+    <div
+      class="hero__track"
+      [style.transform]="'translateX(' + (-heroIndex * 100) + '%)'"
+    >
+      <img
+        *ngFor="let img of hero; let i = index"
+        [src]="img"
+        class="hero__img"
+        alt=""
+         [ngStyle]="{
+    'object-position': heroPositions[i],
+    transform: heroTransforms[i]
+  }"
+      />
+    </div>
+
+    <!-- Flecha derecha -->
+    <button class="hero__nav right" (click)="nextHero()">
+      ❯
+    </button>
+
+    <!-- PUNTOS DEL CARRUSEL -->
     <div class="hero__dots">
       <button
         *ngFor="let _ of hero; let i = index"
@@ -15,6 +39,7 @@
     </div>
   </div>
 </div>
+
 
 <section class="container"></section>
 
@@ -91,7 +116,6 @@
           <img [src]="r.img" [alt]="r.titulo" />
         </div>
 
-        <!-- 👇 aquí conectamos el click con el detalle del libro -->
         <button
           class="reco-card__btn"
           type="button"

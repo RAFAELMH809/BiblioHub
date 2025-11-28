@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -11,7 +11,7 @@ type Categoria = {
 };
 
 type Recomendacion = {
-  id: string;      // 👈 id que usaremos en /book/:id
+  id: string;      // id que usaremos en /book/:id
   titulo: string;
   img: string;
 };
@@ -23,28 +23,86 @@ type Recomendacion = {
   templateUrl: './home-user.html',
   styleUrls: ['./home-user.scss'],
 })
-export class HomeUserComponent {
+export class HomeUserComponent implements OnInit, OnDestroy {
   constructor(private router: Router) {}
 
-  // HERO igual que en home
-  hero: string[] = [
-    'assets/covers/banner-1.jpg',
-    'assets/covers/banner-2.jpg',
-    'assets/covers/banner-3.jpg',
-  ];
-  heroIndex = 0;
+  // ================= HERO (carrusel) =================
 
-  prevHero(): void {
-    this.heroIndex = (this.heroIndex - 1 + this.hero.length) % this.hero.length;
-  }
-  nextHero(): void {
-    this.heroIndex = (this.heroIndex + 1) % this.hero.length;
-  }
-  goHero(i: number): void {
-    this.heroIndex = i;
-  }
+  // ================= HERO (carrusel) =================
 
-  // CATEGORÍAS igual que en home
+// Imágenes del carrusel
+hero: string[] = [
+  'assets/covers/banner-1.jpg',
+  'assets/covers/banner-2.jpg',
+  'assets/covers/banner-3.jpg',
+];
+
+// Posición de recorte por imagen
+heroPositions: string[] = [
+  '10% 50%',    // banner-1 -> más hacia la izquierda (x=20%, y=50%)
+  'center 60%', // banner-2
+  'center 50%',    // banner-3
+];
+
+
+// 🔹 Transform por imagen (zoom + desplazamiento)
+heroTransforms: string[] = [
+  'scale(1.15) translateX(-3%)', // banner-1: un poco “zoom” y movido a la izquierda
+ 
+];
+
+heroIndex = 0;
+private heroTimer: any = null;
+
+ngOnInit(): void {
+  this.startHeroAuto();
+}
+
+ngOnDestroy(): void {
+  this.clearHeroAuto();
+}
+
+/** Cambio automático cada cierto tiempo */
+private startHeroAuto(): void {
+  this.clearHeroAuto();
+  this.heroTimer = setInterval(() => {
+    this.nextHero(false);   // false = no reiniciar timer dentro
+  }, 10000);                 // ⬅️ tiempo entre slides (6s)
+}
+
+private clearHeroAuto(): void {
+  if (this.heroTimer) {
+    clearInterval(this.heroTimer);
+    this.heroTimer = null;
+  }
+}
+
+/** Mover el carrusel al índice indicado */
+private showHero(targetIndex: number, resetTimer: boolean): void {
+  const total = this.hero.length;
+  this.heroIndex = (targetIndex + total) % total;
+
+  if (resetTimer) {
+    this.startHeroAuto();
+  }
+}
+
+prevHero(resetTimer: boolean = true): void {
+  this.showHero(this.heroIndex - 1, resetTimer);
+}
+
+nextHero(resetTimer: boolean = true): void {
+  this.showHero(this.heroIndex + 1, resetTimer);
+}
+
+goHero(i: number): void {
+  this.showHero(i, true);
+}
+
+
+
+  /* ================= CATEGORÍAS ================= */
+
   categorias: Categoria[] = [
     {
       key: 'educacion',
@@ -90,8 +148,8 @@ export class HomeUserComponent {
     },
   ];
 
-  // RECOMENDACIONES
-  // ⚠️ Importante: los id deben coincidir con los que pusimos en BOOKS de book-detail.ts
+  /* ================= RECOMENDACIONES ================= */
+
   recomendaciones: Recomendacion[] = [
     {
       id: 'ingenieria-soft',
@@ -112,7 +170,6 @@ export class HomeUserComponent {
 
   trackByKey = (_: number, c: Categoria) => c.key;
 
-  // 👇 Cuando el usuario da click en "Leer más..."
   goToBook(r: Recomendacion) {
     this.router.navigate(['/book', r.id]);
   }

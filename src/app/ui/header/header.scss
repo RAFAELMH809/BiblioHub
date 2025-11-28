@@ -97,12 +97,12 @@
   line-height: 1;
 }
 .btn--ghost {
-  background: transparent;
+  background: #003da5;
   color: #fff;
-  border-color: #fff;
+  border-color: #0b6fa4;
 }
 .btn--ghost:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(6, 90, 201, 0.747);
 }
 .btn--primary {
   background: #003da5;
@@ -111,6 +111,7 @@
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
 }
 .btn--primary:hover {
+  background: rgba(6, 90, 201, 0.747);
   filter: brightness(0.95);
 }
 
@@ -118,23 +119,25 @@
 .fav-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 0 14px;
+  gap: 6px;  
+  padding: 0 34px;  //separar favoritos izquierda//
   height: 36px;
   border-radius: 999px;
-  border: 2px solid #fff;
+  border: 2px solid #00000000;
   background: transparent;
-  color: #fff;
+  color: #000000;
   font-weight: 800;
+  font-size: 18px;       /* <- súbele el tamaño aquí */
+
   cursor: pointer;
 }
 .fav-btn img {
-  width: 18px;
-  height: 18px;
+  width: 38px;
+  height: 38px;
 }
 .avatar-btn {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 999px;
   border: 0;
   padding: 0;
@@ -149,19 +152,19 @@
 
 /* ========= BARRA AZUL ========= */
 .catbar {
-  background: linear-gradient(90deg, #003da5 0%, #003da5 90%, #00ad9f 100%);
+  background: linear-gradient(90deg, #007AB5 100%, #007AB5 100%, #00ad9e00 100%);
 }
 .catbar__row {
-  max-width: 1200px;
+  max-width: 1800px; //tamaño de categorías libros etc//
   margin: 0 auto;
-  padding: 10px 16px;
+  padding: 20px 16px; //agrandar azúl barra de filtrado//
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 19px;
 }
 .catbar__select,
 .catbar__input {
-  height: 36px;
+  height: 40px; //agrandar botones de filtrados//
   border-radius: 4px;
   border: 1px solid #dde4ee;
   background: #f5f5f5;

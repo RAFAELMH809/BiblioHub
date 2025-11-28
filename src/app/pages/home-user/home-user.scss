@@ -1,4 +1,6 @@
 /* Hace que el bloque ocupe 100vw, ignorando el max-width del layout */
+/* Hace que el bloque ocupe 100vw, ignorando el max-width del layout */
+/* Hace que el bloque ocupe 100vw, ignorando el max-width del layout */
 .fullbleed{
   width: 100vw;
   position: relative;
@@ -11,20 +13,48 @@
 /* Hero a todo lo ancho, sin bordes redondeados */
 .hero{
   position:relative;
-  height: 360px;         /* súbelo o bájalo a tu gusto (ej. 380–420) */
+  height: 460px;         /* ajusta la altura si quieres */
   overflow:hidden;
-  border-radius: 0;      /* ⬅️ sin esquinas */
+  border-radius: 0;
 }
-.hero__img{ width:100%; height:100%; object-fit:cover; }
 
+/* PISTA que se mueve */
+.hero__track{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform .6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Cada slide ocupa el 100% del ancho */
+.hero__img{
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center center;  /* 🔹 importante para que el zoom se vea bien */
+}
+
+/* Flechas */
 .hero__nav{
-  position:absolute; top:50%; transform:translateY(-50%);
-  border:0; width:48px; height:48px; border-radius:999px;
-  background:rgba(0,0,0,.35); color:#fff; cursor:pointer; font-size:20px;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  border:0;
+  width:48px;
+  height:48px;
+  border-radius:999px;
+  background:rgba(0,0,0,.35);
+  color:#fff;
+  cursor:pointer;
+  font-size:20px;
+  z-index: 3;                /* ⬅️ asegura que quede encima de la imagen */
 }
-.hero__nav.left{ left:18px } 
-.hero__nav.right{ right:18px }
 
+.hero__nav.left{  left:18px; }
+.hero__nav.right{ right:18px; }
+
+/* Botón "ver más" si lo usas */
 .hero__cta{
   position:absolute; left:40px; bottom:28px;
   background:rgba(255,255,255,.18);
@@ -32,34 +62,52 @@
   padding:.6rem 1.1rem; border-radius:10px;
 }
 
+/* Puntos del carrusel (como en tu mockup) */
 .hero__dots{
-  position:absolute; left:0; right:0; bottom:16px;
-  display:flex; justify-content:center; gap:8px;
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:38px;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  z-index:3;
 }
-.dot{ width:10px; height:10px; border-radius:999px; border:0; background:rgba(255,255,255,.6) }
-.dot.active{ background:#fff }
+
+.dot{
+  width:12px;
+  height:12px;
+  border-radius:999px;
+  border:2px solid rgba(255,255,255,.85);
+  background:transparent;
+  padding:0;
+  cursor:pointer;
+}
+
+.dot.active{
+  background:#ffffff;
+  border-color:#ffffff;
+}
+
 
 /* ====== Franja blanca justo debajo del hero ====== */
 .quick-strip{
   position: relative;
   z-index: 2;
-  /* hacemos el fondo blanco del contenedor, no de la tarjeta */
   background: #fff;
-  /* nos “encimamos” al hero desde el propio contenedor */
   margin-top: -28px;
-  padding-top: 22px;   /* lo que antes estaba en la card */
+  padding-top: 22px;
   padding-bottom: 28px;
 }
 
 .quick-strip__card{
   max-width: 1100px;
-  margin: 0 auto;      /* sin margen negativo aquí */
-  /* eliminamos el doble blanco y la separación visual */
+  margin: 0 auto;
   background: transparent;
   box-shadow: none;
   border: none;
   border-radius: 0;
-  padding: 0;          /* padding se lo dimos al contenedor */
+  padding: 0;
 }
 
 .quick-grid{
@@ -69,13 +117,13 @@
 }
 
 .quick-item img{
-  height: 72px;               /* ⬅️ tamaño grande de iconos */
+  height: 72px;
   width: auto; margin: 0 auto 10px;
 }
 .quick-item h4{
   margin: 0;
   font-weight: 800;
-  color: #0B3654;             /* azul título (ajusta a tu guía) */
+  color: #0B3654;
   line-height: 1.25;
 }
 
@@ -85,16 +133,16 @@
 }
 .progress__line{
   position: relative;
-  width: 78%;                  /* largo de la línea */
+  width: 78%;
   height: 4px; border-radius: 999px;
-  background: #19B5D8;        /* cian de tu guía */
+  background: #19B5D8;
 }
 .p-dot{
   position: absolute; top: 50%;
   transform: translate(-50%, -50%);
   width: 14px; height: 14px; border-radius: 999px;
-  background: #19B5D8;        /* mismo color que la línea */
-  box-shadow: 0 0 0 4px #fff; /* halo blanco como en el mockup */
+  background: #19B5D8;
+  box-shadow: 0 0 0 4px #fff;
 }
 
 /* ====== Responsive ====== */
@@ -111,14 +159,14 @@
 /* ====== CATEGORÍAS ====== */
 .categories{
   width: 100%;
-  background: #ffffff;             /* el fondo de la franja de categorías */
+  background: #ffffff;
   padding: 12px 0 24px;
 }
 
 .cat-grid{
-  list-style: none; margin: 0; padding: 0;   /* padding lateral */
+  list-style: none; margin: 0; padding: 0;
   display: grid; gap: 12px;
-  grid-template-columns: repeat(6, 1fr);          /* 6 columnas como el mockup */
+  grid-template-columns: repeat(6, 1fr);
 }
 
 /* Cada tarjeta con fondo y tamaño consistente */
@@ -128,9 +176,8 @@
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  /* Misma altura para todas: */
-  aspect-ratio: 16 / 10;           /* relación similar a tu mockup */
-  min-height: 210px;               /* asegura altura mínima en pantallas grandes */
+  aspect-ratio: 16 / 10;
+  min-height: 210px;
   transition: transform .2s ease, box-shadow .2s ease;
 }
 
@@ -144,8 +191,8 @@
 .cat-icon{
   position: absolute; left: 50%; top: 40%;
   transform: translate(-50%, -50%);
-  width: 64px; height: auto;       /* íconos del mismo tamaño */
-  filter: drop-shadow(0 2px 3px rgba(0,0,0,.35)); /* leve realce */
+  width: 64px; height: auto;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
 }
 
 .cat-title{
@@ -215,35 +262,31 @@
   letter-spacing: 0.12em;
 }
 
-/* CONTENEDOR DE LAS 3 TARJETAS
-   En desktop usamos flex para poder mover cada una de manera individual */
 .reco__grid {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;   /* 1ª a la izq, 2ª centro, 3ª der */
-  gap: 24px;                        /* separación general entre ellas */
+  justify-content: space-between;
+  gap: 24px;
 }
 
-/* Tarjeta base */
 .reco-card {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  width: 230px;                     /* ancho fijo para las tres */
+  width: 230px;
 }
 
-/* Clases INDIVIDUALES: ajusta estos márgenes como quieras */
 .reco-card--left {
-  margin-left: -160px;               /* ajusta (-20, -5, 0…) */
+  margin-left: -160px;
 }
 
 .reco-card--center {
-  margin-top: 0;                    /* por si quieres subir/bajar solo esta */
+  margin-top: 0;
 }
 
 .reco-card--right {
-  margin-right: -160px;              /* ajusta (0, 10, 20…) */
+  margin-right: -160px;
 }
 
 .reco-card__cover img {

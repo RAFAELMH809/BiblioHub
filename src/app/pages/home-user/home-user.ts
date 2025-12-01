@@ -48,7 +48,8 @@ heroPositions: string[] = [
 // 🔹 Transform por imagen (zoom + desplazamiento)
 heroTransforms: string[] = [
   'scale(1.15) translateX(-3%)', // banner-1: un poco “zoom” y movido a la izquierda
- 
+  //scale(0.) translateX(-3%)',                 // banner-2: ligero zo
+
 ];
 
 heroIndex = 0;

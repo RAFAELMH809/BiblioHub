@@ -191,7 +191,7 @@
 .cat-icon{
   position: absolute; left: 50%; top: 40%;
   transform: translate(-50%, -50%);
-  width: 64px; height: auto;
+  width: 74px; height: auto;
   filter: drop-shadow(0 2px 3px rgba(0,0,0,.35));
 }
 
@@ -204,10 +204,10 @@
 }
 
 .cat-title span{
-  display: block; font-weight: 700; font-size: 14px;
+  display: block; font-weight: 700; font-size: 23px;
 }
 .cat-title strong{
-  display: block; margin-top: 4px; font-size: 18px; letter-spacing: .2px;
+  display: block; margin-top: 4px; font-size: 20px; letter-spacing: .2px;
 }
 
 /* Hover lindo */

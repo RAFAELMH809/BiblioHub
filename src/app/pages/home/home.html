@@ -1,11 +1,34 @@
 <!-- HERO FULL WIDTH -->
 <div class="fullbleed">
   <div class="hero">
-    <button class="hero__nav left" (click)="prevHero()">❮</button>
-    <img [src]="hero[heroIndex]" class="hero__img" alt="" />
-    <button class="hero__nav right" (click)="nextHero()">❯</button>
+    <!-- Flecha izquierda -->
+    <button class="hero__nav left" (click)="prevHero()">
+      ❮
+    </button>
 
+    <!-- PISTA que se mueve horizontalmente (igual que en home-user) -->
+    <div
+      class="hero__track"
+      [style.transform]="'translateX(' + (-heroIndex * 100) + '%)'"
+    >
+      <img
+        *ngFor="let img of hero; let i = index"
+        [src]="img"
+        class="hero__img"
+        alt=""
+        [ngStyle]="{
+          'object-position': heroPositions[i],
+          transform: heroTransforms[i]
+        }"
+      />
+    </div>
 
+    <!-- Flecha derecha -->
+    <button class="hero__nav right" (click)="nextHero()">
+      ❯
+    </button>
+
+    <!-- PUNTOS DEL CARRUSEL -->
     <div class="hero__dots">
       <button
         *ngFor="let _ of hero; let i = index"
@@ -75,32 +98,23 @@
   </ul>
 </section>
 
-<!-- ====== NUEVA SECCIÓN RECOMENDACIONES ====== -->
+<!-- ====== RECOMENDACIONES ====== -->
 <section class="reco">
   <div class="reco__inner">
     <h2 class="reco__title">RECOMENDACIONES</h2>
 
     <div class="reco__grid">
-      <!-- 1er libro: izquierda -->
-      <div class="reco-card reco-card--left">
+      <div
+        *ngFor="let r of recomendaciones; let i = index"
+        class="reco-card"
+        [ngClass]="{
+          'reco-card--left': i === 0,
+          'reco-card--center': i === 1,
+          'reco-card--right': i === 2
+        }"
+      >
         <div class="reco-card__cover">
-          <img src="assets/home/categorias/fondos/julio.png" alt="Los tres mundos" />
-        </div>
-        <button class="reco-card__btn">Leer más...</button>
-      </div>
-
-      <!-- 2º libro: centro -->
-      <div class="reco-card reco-card--center">
-        <div class="reco-card__cover">
-          <img src="assets/home/categorias/fondos/cienciadatos.png" alt="Ciencia de datos" />
-        </div>
-        <button class="reco-card__btn">Leer más...</button>
-      </div>
-
-      <!-- 3er libro: derecha -->
-      <div class="reco-card reco-card--right">
-        <div class="reco-card__cover">
-          <img src="assets/home/categorias/fondos/libro3.png" alt="Libro 3" />
+          <img [src]="r.img" [alt]="r.titulo" />
         </div>
         <button class="reco-card__btn">Leer más...</button>
       </div>

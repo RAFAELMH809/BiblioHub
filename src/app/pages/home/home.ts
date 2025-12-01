@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 type Categoria = {
   key: string;
-  titulo: string;      // (Educación, Religión, etc.)
-  icon: string;        // ruta del ícono blanco
-  bg: string;          // ruta del fondo (portada)
-  link?: string;       // navegación (mock por ahora)
+  titulo: string;
+  icon: string;
+  bg: string;
+  link?: string;
 };
 
 type Recomendacion = {
@@ -22,26 +22,77 @@ type Recomendacion = {
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })
-export class HomeComponent {
-  // === HERO (banners) ===
+export class HomeComponent implements OnInit, OnDestroy {
+  // ===== HERO (banners) =====
   hero: string[] = [
     'assets/covers/banner-1.jpg',
     'assets/covers/banner-2.jpg',
     'assets/covers/banner-3.jpg',
   ];
+
+  // mismas posiciones que en home-user
+  heroPositions: string[] = [
+    '10% 50%',   // banner-1 más hacia la izquierda
+    'center 60%',
+    'center 50%',
+  ];
+
+  // zoom/desplazamiento por slide
+  heroTransforms: string[] = [
+    'scale(1.15) translateX(-3%)', // banner-1
+    'none',                        // banner-2
+    'none',                        // banner-3
+  ];
+
   heroIndex = 0;
+  private heroTimer: any = null;
 
-  prevHero(): void {
-    this.heroIndex = (this.heroIndex - 1 + this.hero.length) % this.hero.length;
+  ngOnInit(): void {
+    this.startHeroAuto();
   }
-  nextHero(): void {
-    this.heroIndex = (this.heroIndex + 1) % this.hero.length;
+
+  ngOnDestroy(): void {
+    this.clearHeroAuto();
   }
+
+  /** Cambio automático cada cierto tiempo */
+  private startHeroAuto(): void {
+    this.clearHeroAuto();
+    this.heroTimer = setInterval(() => {
+      this.nextHero(false);
+    }, 10000); // 10s entre slides
+  }
+
+  private clearHeroAuto(): void {
+    if (this.heroTimer) {
+      clearInterval(this.heroTimer);
+      this.heroTimer = null;
+    }
+  }
+
+  /** Mover el carrusel al índice indicado */
+  private showHero(targetIndex: number, resetTimer: boolean): void {
+    const total = this.hero.length;
+    this.heroIndex = (targetIndex + total) % total;
+
+    if (resetTimer) {
+      this.startHeroAuto();
+    }
+  }
+
+  prevHero(resetTimer: boolean = true): void {
+    this.showHero(this.heroIndex - 1, resetTimer);
+  }
+
+  nextHero(resetTimer: boolean = true): void {
+    this.showHero(this.heroIndex + 1, resetTimer);
+  }
+
   goHero(i: number): void {
-    this.heroIndex = i;
+    this.showHero(i, true);
   }
 
-  // === CATEGORÍAS (6 tarjetas) ===
+  // ===== CATEGORÍAS =====
   categorias: Categoria[] = [
     {
       key: 'educacion',
@@ -87,7 +138,7 @@ export class HomeComponent {
     },
   ];
 
-  // === RECOMENDACIONES ===
+  // ===== RECOMENDACIONES =====
   recomendaciones: Recomendacion[] = [
     {
       titulo: 'Los tres mundos',
@@ -96,8 +147,7 @@ export class HomeComponent {
     {
       titulo: 'Ciencia de datos',
       img: 'assets/home/categorias/fondos/cienciadatos.png',
-      imgAlt: 'Ciencia de datos',
-    } as any, // si solo quieres evitar TS aquí, puedes quitar imgAlt y el "as any"
+    },
     {
       titulo: 'Más lecturas',
       img: 'assets/home/categorias/fondos/libro3.png',

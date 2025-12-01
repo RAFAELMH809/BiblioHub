@@ -32,34 +32,41 @@ export class HeaderComponent {
   }
 
   private updateFlags(url: string) {
-    this.currentUrl = url;
+  this.currentUrl = url;
 
-    this.isAuthRoute =
-      url.startsWith('/login') ||
-      url.startsWith('/auth') ||
-      url.startsWith('/signup') ||
-      url.startsWith('/onboarding-info') ||
-      url.startsWith('/onboarding');
+  // Rutas de autenticación: login, registro, onboarding
+  this.isAuthRoute =
+    url.startsWith('/login') ||
+    url.startsWith('/auth') ||
+    url.startsWith('/signup') ||
+    url.startsWith('/onboarding-info') ||
+    url.startsWith('/onboarding');
 
-    this.isUserHomeRoute =
-      url.startsWith('/home-user') ||
-      url.startsWith('/book') ||
-      url.startsWith('/reader') ||
-      url.startsWith('/favorites') ||
-      url.startsWith('/results');
+  // 🧩 Rutas que usan HEADER DE USUARIO (Favoritos + avatar)
+  //    👉 OJO: AQUÍ YA QUITAMOS '/results'
+  this.isUserHomeRoute =
+    url.startsWith('/home-user') ||
+    url.startsWith('/book') ||
+    url.startsWith('/reader') ||
+    url.startsWith('/favorites');
 
-    this.isHomeRoute =
-      url.startsWith('/home') ||
-      url.startsWith('/home-user') ||
-      url.startsWith('/book') ||
-      url.startsWith('/results');
+  // Rutas que comparten estilo de home (logo grande, etc.)
+  // Si quieres que /results tenga también el estilo de home,
+  // puedes dejarlo aquí o quitarlo, esto solo afecta tamaños.
+  this.isHomeRoute =
+    url.startsWith('/home') ||
+    url.startsWith('/home-user') ||
+    url.startsWith('/book') ||
+    url.startsWith('/results');
 
-    this.isProfileRoute =
-      url.startsWith('/profile') ||
-      url.startsWith('/reader');
+  // Rutas donde NO se muestra el header completo
+  this.isProfileRoute =
+    url.startsWith('/profile') ||
+    url.startsWith('/reader');
 
-    this.isFavoritesRoute = url.startsWith('/favorites');
-  }
+  this.isFavoritesRoute = url.startsWith('/favorites');
+}
+
 
   onAuthLogoClick() {
     if (this.currentUrl.startsWith('/onboarding')) return;

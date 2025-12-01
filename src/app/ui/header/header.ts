@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+
 import { SearchService } from '../../core/services/search.service';
+import { UserStoreService } from '../../core/user-store.service';
 
 @Component({
   selector: 'app-header',
@@ -12,61 +14,61 @@ import { SearchService } from '../../core/services/search.service';
   styleUrls: ['./header.scss'],
 })
 export class HeaderComponent {
+  // flags de rutas
   isAuthRoute = false;
   isHomeRoute = false;
-  isUserHomeRoute = false;
   isProfileRoute = false;
   isFavoritesRoute = false;
 
   currentUrl = '';
+  // 👉 estado real de sesión
+  isLoggedIn = false;
 
   constructor(
     private router: Router,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private userStore: UserStoreService
   ) {
+    // 1) escuchar cambios de sesión
+    this.userStore.profile$.subscribe((p) => {
+      this.isLoggedIn = !!p;
+    });
+
+    // 2) flags iniciales
     this.updateFlags(this.router.url);
 
+    // 3) flags en cada navegación
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => this.updateFlags(e.urlAfterRedirects));
   }
 
   private updateFlags(url: string) {
-  this.currentUrl = url;
+    this.currentUrl = url;
 
-  // Rutas de autenticación: login, registro, onboarding
-  this.isAuthRoute =
-    url.startsWith('/login') ||
-    url.startsWith('/auth') ||
-    url.startsWith('/signup') ||
-    url.startsWith('/onboarding-info') ||
-    url.startsWith('/onboarding');
+    // rutas de login / registro / onboarding
+    this.isAuthRoute =
+      url.startsWith('/login') ||
+      url.startsWith('/auth') ||
+      url.startsWith('/signup') ||
+      url.startsWith('/onboarding-info') ||
+      url.startsWith('/onboarding');
 
-  // 🧩 Rutas que usan HEADER DE USUARIO (Favoritos + avatar)
-  //    👉 OJO: AQUÍ YA QUITAMOS '/results'
-  this.isUserHomeRoute =
-    url.startsWith('/home-user') ||
-    url.startsWith('/book') ||
-    url.startsWith('/reader') ||
-    url.startsWith('/favorites');
+    // rutas que se ven como "home" (logo grande, etc.)
+    this.isHomeRoute =
+      url.startsWith('/home') ||
+      url.startsWith('/home-user') ||
+      url.startsWith('/book') ||
+      url.startsWith('/results');
 
-  // Rutas que comparten estilo de home (logo grande, etc.)
-  // Si quieres que /results tenga también el estilo de home,
-  // puedes dejarlo aquí o quitarlo, esto solo afecta tamaños.
-  this.isHomeRoute =
-    url.startsWith('/home') ||
-    url.startsWith('/home-user') ||
-    url.startsWith('/book') ||
-    url.startsWith('/results');
+    // rutas donde ocultas el header principal
+    this.isProfileRoute =
+      url.startsWith('/profile') ||
+      url.startsWith('/reader');
 
-  // Rutas donde NO se muestra el header completo
-  this.isProfileRoute =
-    url.startsWith('/profile') ||
-    url.startsWith('/reader');
-
-  this.isFavoritesRoute = url.startsWith('/favorites');
-}
-
+    // estilo especial para favoritos (si lo usas en el SCSS)
+    this.isFavoritesRoute = url.startsWith('/favorites');
+  }
 
   onAuthLogoClick() {
     if (this.currentUrl.startsWith('/onboarding')) return;
@@ -80,15 +82,12 @@ export class HeaderComponent {
     const a = (author ?? '').trim();
 
     // nada escrito → NO navega, no hace nada
-    if (!cat && !t && !a) {
-      return;
-    }
+    if (!cat && !t && !a) return;
 
-    // ejecuta búsqueda (esto actualiza el servicio + results$)
+    // ejecuta búsqueda (actualiza results$)
     this.searchService.search(cat, t, a);
 
-    // si ya estás en /results, no pasa nada,
-    // sólo se actualizarán las cards.
+    // si no estás en /results, navega
     if (!this.currentUrl.startsWith('/results')) {
       this.router.navigateByUrl('/results');
     }

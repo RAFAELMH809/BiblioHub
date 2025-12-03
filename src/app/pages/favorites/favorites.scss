@@ -82,20 +82,14 @@
 .fav__card {
   display: grid;
 
-  /* 🔹 CONTROL DE ANCHOS DE LAS COLUMNAS
-     1) Columna portada/corazón
-     2) Columna separador
-     3) Columna texto
-     4) Columna botones
-  */
-  grid-template-columns: 200px 20px 1fr 190px;
+  /* 1) portada  2) TEXTO  3) separador  4) botones  */
+  grid-template-columns: 200px 1fr 24px 270px;
 
   align-items: stretch;
-  gap: 12px;            /* ⬅️ espacio horizontal entre columnas */
-
+  gap: 12px;
   background: #ffffff;
   border-radius: 10px;
-  padding: 12px 18px;   /* ⬅️ padding interno tarjeta */
+  padding: 12px 18px;
   color: #000;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
 }
@@ -113,6 +107,8 @@
   /* Mueve el bloque completo dentro de la tarjeta */
   padding-top: 8px;     /* ⬅️ más grande = más abajo */
   padding-left: 0;      /* ⬅️ muévelo hacia la derecha */
+  grid-column: 1;
+
 }
 
 /* Botón del corazón */
@@ -151,12 +147,14 @@
 /* ===================================================== */
 
 .fav__card-separator {
-  height: 90%;          /* ⬅️ alto del separador dentro de la card */
+  height: 90%;            /* alto del separador dentro de la card */
   width: auto;
-  align-self: center;   /* ⬅️ posición vertical (center, flex-start, etc.) */
-
-  /* si quieres jugar un poco: */
-  margin-left: 1420px;       /* ⬅️ mueve el separador hacia izquierda/derecha */
+  align-self: center;     /* centrado vertical dentro de la fila */
+  justify-self: center;   /* centrado dentro de la columna de 24px */
+  margin: 0;              /* ❌ nada de margin-left gigantes */
+  display: block;
+   grid-column: 3;
+  grid-row: 1;
 }
 
 /* ===================================================== */
@@ -169,6 +167,8 @@
   flex-direction: column;
   /* ⬅️ SEPARACIÓN ENTRE TÍTULO, AUTOR Y DESCRIPCIÓN */
   gap: 6px;          /* súbelo para separarlos más, bájalo para pegarlos */
+    grid-column: 2;
+
 }
 
 .fav__card-title {
@@ -201,6 +201,7 @@
   justify-content: center;  /* centro vertical */
   align-items: flex-start;  /* 🔹 alinea los botones a la IZQUIERDA */
   gap: 40px; /* separar botones entre ellos */
+  grid-column: 4;
 }
 
 
@@ -208,18 +209,18 @@
 .fav__btn {
   border-radius: 999px;
   border: 0;
-  padding: 15px 48px; /* ⬅️ alto/ancho del botón */
+  padding: 15px 48px;
   font-weight: 700;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 60px;          /* ⬅️ espacio entre texto e ícono */
-  font-size: 17px;    /* ⬅️ tamaño del texto del botón */
-  margin-left: -90px;   /* valor base */
+  gap: 60px;
+  font-size: 17px;
+  margin-left: 0;   /* ✅ ya no se mete en la columna del separador */
 
   img {
-    width: 27px;      /* ⬅️ tamaño del ícono */
+    width: 27px;
     height: 27px;
   }
 }

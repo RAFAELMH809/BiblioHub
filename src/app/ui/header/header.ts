@@ -21,7 +21,7 @@ export class HeaderComponent {
   isFavoritesRoute = false;
 
   currentUrl = '';
-  // 👉 estado real de sesión
+  // estado real de sesión
   isLoggedIn = false;
 
   constructor(
@@ -29,15 +29,15 @@ export class HeaderComponent {
     private searchService: SearchService,
     private userStore: UserStoreService
   ) {
-    // 1) escuchar cambios de sesión
+    // escuchar cambios de sesión
     this.userStore.profile$.subscribe((p) => {
       this.isLoggedIn = !!p;
     });
 
-    // 2) flags iniciales
+    // flags iniciales
     this.updateFlags(this.router.url);
 
-    // 3) flags en cada navegación
+    // flags en cada navegación
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe((e) => this.updateFlags(e.urlAfterRedirects));
@@ -54,19 +54,20 @@ export class HeaderComponent {
       url.startsWith('/onboarding-info') ||
       url.startsWith('/onboarding');
 
-    // rutas que se ven como "home" (logo grande, etc.)
+    // rutas que se ven como "home" (logo normal + barra azul)
     this.isHomeRoute =
       url.startsWith('/home') ||
       url.startsWith('/home-user') ||
       url.startsWith('/book') ||
-      url.startsWith('/results');
+      url.startsWith('/results') ||
+      url.startsWith('/favorites');
 
     // rutas donde ocultas el header principal
     this.isProfileRoute =
       url.startsWith('/profile') ||
       url.startsWith('/reader');
 
-    // estilo especial para favoritos (si lo usas en el SCSS)
+    // estilo especial para favoritos (si quieres usar la clase)
     this.isFavoritesRoute = url.startsWith('/favorites');
   }
 
@@ -81,7 +82,7 @@ export class HeaderComponent {
     const t = (title ?? '').trim();
     const a = (author ?? '').trim();
 
-    // nada escrito → NO navega, no hace nada
+    // nada escrito → NO navega
     if (!cat && !t && !a) return;
 
     // ejecuta búsqueda (actualiza results$)

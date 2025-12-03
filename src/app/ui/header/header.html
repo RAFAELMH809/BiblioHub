@@ -1,9 +1,10 @@
 <header
   *ngIf="!isProfileRoute"
-  class="topbar fullbleed"
+  class="topbar"
   [class.topbar--home]="isHomeRoute && !isAuthRoute"
   [class.topbar--favorites]="isFavoritesRoute"
 >
+
   <!-- ===== Header normal (HOME público y HOME de usuario) ===== -->
   <div class="topbar__row" *ngIf="!isAuthRoute">
     <!-- Logo -->
